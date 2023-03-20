@@ -48,9 +48,9 @@ public class TransactionDataAccessService implements TransactionDao {
 	public int updateTransactionById(UUID id, Transaction transaction) {
 		return getTransactionById(id)
 				.map(t -> {
-					int indexOfTransactionToDelete = DB.indexOf(transaction);
+					int indexOfTransactionToDelete = DB.indexOf(t);
 					if (indexOfTransactionToDelete >= 0) {
-						DB.set(indexOfTransactionToDelete, transaction);
+						DB.set(indexOfTransactionToDelete, new Transaction(id, transaction.getMerchant(), transaction.getCost()));
 						return 1;
 					}
 					return 0;
