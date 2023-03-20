@@ -1,6 +1,8 @@
 package com.fairbourn.finance.services;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -25,5 +27,17 @@ public class TransactionService {
 
 	public List<Transaction> getAllTransactions() {
 		return transactionDao.getAllTransactions();
+	}
+	
+	public Optional<Transaction> getTransactionById(UUID id) {
+		return transactionDao.getTransactionById(id);
+	}
+	
+	public int deleteTransactionById(UUID id) {
+		return transactionDao.deleteTransactionById(id);
+	}
+	
+	public int updateTransactionById(UUID id, Transaction transaction) {
+		return transactionDao.updateTransactionById(id, transaction);
 	}
 }
