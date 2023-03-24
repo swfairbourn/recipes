@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.fairbourn.finance.model.Transaction;
 
 @Repository("inMemory")
-public class TransactionDataAccessService implements TransactionDao {
+public class InMemoryTransactionDataAccessService implements TransactionDao {
 
 	private static List<Transaction> DB = new ArrayList<>();
 	
