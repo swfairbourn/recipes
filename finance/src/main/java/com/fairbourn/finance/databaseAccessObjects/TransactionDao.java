@@ -8,9 +8,9 @@ import com.fairbourn.finance.model.Transaction;
 
 public interface TransactionDao {
 
-	int insertTransaction(UUID id, Transaction transaction);
+	boolean insertTransaction(UUID id, Transaction transaction);
 	
-	default int insertTransaction(Transaction transaction) {
+	default boolean insertTransaction(Transaction transaction) {
 		UUID id = UUID.randomUUID();
 		return insertTransaction(id, transaction);
 	}
@@ -19,8 +19,8 @@ public interface TransactionDao {
 	
 	Optional<Transaction> getTransactionById(UUID id);
 	
-	int deleteTransactionById(UUID id);
+	boolean deleteTransactionById(UUID id);
 	
-	int updateTransactionById(UUID id, Transaction transaction);
+	boolean updateTransactionById(UUID id, Transaction transaction);
 	
 }

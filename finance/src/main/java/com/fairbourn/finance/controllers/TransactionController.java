@@ -19,6 +19,8 @@ import org.springframework.web.server.ResponseStatusException;
 import com.fairbourn.finance.model.Transaction;
 import com.fairbourn.finance.services.TransactionService;
 
+import jakarta.servlet.http.HttpServletResponse;
+
 @RequestMapping("api/v1/transaction")
 @RestController
 public class TransactionController {
@@ -31,8 +33,13 @@ public class TransactionController {
 	}
 	
 	@PostMapping("/insertTransaction")
-	public void insertTransaction(@RequestBody Transaction transaction) {
-		transactionService.insertTransaction(transaction);
+	public void insertTransaction(@RequestBody Transaction transaction, HttpServletResponse response) {
+		boolean inserted = transactionService.insertTransaction(transaction);
+		if (inserted) {
+			response.setStatus(HttpServletResponse.SC_CREATED);
+		} else {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Failed to insert transaction");
+		}
 	}
 	
 	@GetMapping("/getAllTransactions")

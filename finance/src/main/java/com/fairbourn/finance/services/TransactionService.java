@@ -21,7 +21,7 @@ public class TransactionService {
 		this.transactionDao = transactionDao;
 	}
 
-	public int insertTransaction(Transaction transaction) {
+	public boolean insertTransaction(Transaction transaction) {
 		return transactionDao.insertTransaction(transaction);
 	}
 
@@ -33,11 +33,11 @@ public class TransactionService {
 		return transactionDao.getTransactionById(id);
 	}
 	
-	public int deleteTransactionById(UUID id) {
+	public boolean deleteTransactionById(UUID id) {
 		return transactionDao.deleteTransactionById(id);
 	}
 	
-	public int updateTransactionById(UUID id, Transaction transaction) {
+	public boolean updateTransactionById(UUID id, Transaction transaction) {
 		return transactionDao.updateTransactionById(id, transaction);
 	}
 }

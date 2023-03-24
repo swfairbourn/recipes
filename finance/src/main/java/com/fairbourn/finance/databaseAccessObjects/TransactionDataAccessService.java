@@ -15,9 +15,9 @@ public class TransactionDataAccessService implements TransactionDao {
 	private static List<Transaction> DB = new ArrayList<>();
 	
 	@Override
-	public int insertTransaction(UUID id, Transaction transaction) {
+	public boolean insertTransaction(UUID id, Transaction transaction) {
 		DB.add(new Transaction(id, transaction.getMerchant(), transaction.getCost()));
-		return 1;
+		return true;
 	}
 
 	@Override
@@ -33,29 +33,29 @@ public class TransactionDataAccessService implements TransactionDao {
 	}
 
 	@Override
-	public int deleteTransactionById(UUID id) {
+	public boolean deleteTransactionById(UUID id) {
 		DB.stream().filter(transaction -> transaction.getId().equals(id));
 		Optional<Transaction> transactionMaybe = getTransactionById(id);
 		if (transactionMaybe.isEmpty()) {
-			return 0;
+			return false;
 		} else {
 			DB.remove(transactionMaybe.get());
-			return 1;
+			return true;
 		}
 	}
 
 	@Override
-	public int updateTransactionById(UUID id, Transaction transaction) {
+	public boolean updateTransactionById(UUID id, Transaction transaction) {
 		return getTransactionById(id)
 				.map(t -> {
 					int indexOfTransactionToDelete = DB.indexOf(t);
 					if (indexOfTransactionToDelete >= 0) {
 						DB.set(indexOfTransactionToDelete, new Transaction(id, transaction.getMerchant(), transaction.getCost()));
-						return 1;
+						return true;
 					}
-					return 0;
+					return false;
 				})
-				.orElse(0);
+				.orElse(false);
 	}
 
 }
