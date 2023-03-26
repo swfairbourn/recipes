@@ -6,21 +6,21 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Transaction {
 
-	private final UUID id;
+	private final UUID transactionId;
 	private String merchant;
 	private double cost;
 	
 	
-	public Transaction(@JsonProperty("id") UUID id, 
+	public Transaction(@JsonProperty("transactionId") UUID transactionId, 
 					   @JsonProperty("merchant") String merchant, 
 					   @JsonProperty("cost") double cost) {
-		this.id = id;
+		this.transactionId = transactionId;
 		this.merchant = merchant;
 		this.cost = cost;
 	}
 
-	public UUID getId() {
-		return id;
+	public UUID getTransactionId() {
+		return transactionId;
 	}
 
 	public String getMerchant() {

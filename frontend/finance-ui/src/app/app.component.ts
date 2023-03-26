@@ -49,10 +49,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   deleteTransaction(transactionId: string): void{
-    this.http.delete<ITransaction[]>("http://localhost:8080/api/v1/transaction/ " + transactionId).pipe(
-      tap(data => console.log('All', JSON.stringify(data))),
-      catchError(this.handleError)
-    );
+    this.http.delete<ITransaction[]>("http://localhost:8080/api/v1/transaction/ " + transactionId).subscribe();
     this.reloadPage();
   }
 

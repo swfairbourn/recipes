@@ -44,7 +44,8 @@ public class TransactionController {
 	
 	@GetMapping("/getAllTransactions")
 	public List<Transaction> getAllTransactions() {
-		return transactionService.getAllTransactions();
+		List<Transaction> transactions = transactionService.getAllTransactions();
+		return transactions;
 	}
 	
 	@GetMapping(path ="/{id}")

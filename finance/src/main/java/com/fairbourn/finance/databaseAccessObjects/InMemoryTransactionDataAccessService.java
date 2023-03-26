@@ -28,13 +28,13 @@ public class InMemoryTransactionDataAccessService implements TransactionDao {
 	@Override
 	public Optional<Transaction> getTransactionById(UUID id) {
 		return DB.stream()
-		.filter(transaction -> transaction.getId().equals(id))
+		.filter(transaction -> transaction.getTransactionId().equals(id))
 		.findFirst();
 	}
 
 	@Override
 	public boolean deleteTransactionById(UUID id) {
-		DB.stream().filter(transaction -> transaction.getId().equals(id));
+		DB.stream().filter(transaction -> transaction.getTransactionId().equals(id));
 		Optional<Transaction> transactionMaybe = getTransactionById(id);
 		if (transactionMaybe.isEmpty()) {
 			return false;

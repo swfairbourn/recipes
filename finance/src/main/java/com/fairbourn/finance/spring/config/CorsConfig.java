@@ -20,7 +20,7 @@ public class CorsConfig {
 	      config.addAllowedHeader("*");
 	      config.setAllowedHeaders(Arrays.asList("*"));
 	      config.setAllowedOriginPatterns(Arrays.asList("*"));
-	      config.setAllowedMethods(Arrays.asList("GET","POST"));
+	      config.setAllowedMethods(Arrays.asList("GET","POST", "DELETE", "PUT"));
 
 	      source.registerCorsConfiguration("/**", config);
 	      return new CorsFilter(source);
