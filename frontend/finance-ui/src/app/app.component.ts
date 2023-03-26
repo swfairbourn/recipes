@@ -15,21 +15,19 @@ export class AppComponent implements OnInit, OnDestroy {
   costValue = '';
   transactions: ITransaction[] = [];
   errorMessage: string = '';
-  sub!: Subscription;
-  postSub!: Subscription;
+  subscriptions: Subscription = new Subscription();
 
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
-    this.sub = this.getAllTransactions().subscribe({
+    this.subscriptions.add(this.getAllTransactions().subscribe({
       next: transactions => this.transactions = transactions,
       error: err => this.errorMessage = err
-    });
+    }));
   }
 
   ngOnDestroy(): void {
-    this.sub.unsubscribe();
-    this.postSub.unsubscribe();
+    this.subscriptions.unsubscribe();
   }
 
   getAllTransactions(): Observable<ITransaction[]>{
@@ -42,14 +40,19 @@ export class AppComponent implements OnInit, OnDestroy {
   submitTransaction(merchant: string, cost: string): void {
     const headers = {'Content-Type': 'application/json'};
     const body = {"merchant": merchant,  "cost": cost};
-    this.postSub = this.http.post("http://localhost:8080/api/v1/transaction/insertTransaction", body, { headers }).subscribe();
+    this.subscriptions.add(this.http.post("http://localhost:8080/api/v1/transaction/insertTransaction", body, { headers }).subscribe());
     this.merchantValue = '';
     this.costValue = '';
     this.reloadPage();
   }
+  updateTransaction(transactionId: string, merchant: string, cost: string): void {
+    const headers = {'Content-Type': 'application/json'};
+    const body = {"merchant": merchant,  "cost": cost};
+    this.subscriptions.add(this.http.put("http://localhost:8080/api/v1/transaction/" + transactionId, body, { headers }).subscribe());
+  }
 
   deleteTransaction(transactionId: string): void{
-    this.http.delete<ITransaction[]>("http://localhost:8080/api/v1/transaction/ " + transactionId).subscribe();
+    this.subscriptions.add(this.http.delete<ITransaction[]>("http://localhost:8080/api/v1/transaction/" + transactionId).subscribe());
     this.reloadPage();
   }
 
