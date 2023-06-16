@@ -1,6 +1,7 @@
 export interface ITransaction {
     transactionId: string;
     merchant: string;
-    cost: number;
+    amount: number;
     category: string;
+    transactionDate: string;
 }
