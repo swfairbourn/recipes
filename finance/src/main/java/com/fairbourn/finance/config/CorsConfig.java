@@ -1,4 +1,4 @@
-package com.fairbourn.finance.spring.config;
+package com.fairbourn.finance.config;
 
 import java.util.Arrays;
 

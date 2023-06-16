@@ -64,8 +64,13 @@ public class TransactionController {
 	}
 	
 	@PutMapping(path = "/{id}")
-	public void updateTransactionById(@PathVariable("id") UUID id, @RequestBody Transaction transaction) {
-		transactionService.updateTransactionById(id, transaction);
+	public void updateTransactionById(@PathVariable("id") UUID id, @RequestBody Transaction transaction, HttpServletResponse response) {
+		boolean updated = transactionService.updateTransactionById(id, transaction);
+		if (updated) {
+			response.setStatus(HttpServletResponse.SC_OK);
+		} else {
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Failed to insert transaction");
+		}
 	}
 	
 }

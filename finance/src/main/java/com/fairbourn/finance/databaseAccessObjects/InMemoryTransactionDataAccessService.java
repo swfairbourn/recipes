@@ -10,13 +10,17 @@ import org.springframework.stereotype.Repository;
 import com.fairbourn.finance.model.Transaction;
 
 @Repository("inMemory")
-public class InMemoryTransactionDataAccessService implements TransactionDao {
+public class InMemoryTransactionDataAccessService implements TransactionDatabaseAccessObject {
 
 	private static List<Transaction> DB = new ArrayList<>();
 	
 	@Override
 	public boolean insertTransaction(UUID id, Transaction transaction) {
-		DB.add(new Transaction(id, transaction.getMerchant(), transaction.getCost()));
+		DB.add(new Transaction(id, 
+				transaction.getMerchant(), 
+				transaction.getAmount(), 
+				transaction.getCategory(),
+				transaction.getTransactionDate()));
 		return true;
 	}
 
@@ -50,7 +54,11 @@ public class InMemoryTransactionDataAccessService implements TransactionDao {
 				.map(t -> {
 					int indexOfTransactionToDelete = DB.indexOf(t);
 					if (indexOfTransactionToDelete >= 0) {
-						DB.set(indexOfTransactionToDelete, new Transaction(id, transaction.getMerchant(), transaction.getCost()));
+						DB.set(indexOfTransactionToDelete, new Transaction(id, 
+								transaction.getMerchant(), 
+								transaction.getAmount(), 
+								transaction.getCategory(),
+								transaction.getTransactionDate()));
 						return true;
 					}
 					return false;

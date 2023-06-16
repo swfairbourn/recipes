@@ -1,0 +1,18 @@
+app:
+  datasource:
+    jdbc-url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: Pr0fess0r
+  jpa:
+    properties:
+      hibernate:
+        default_schema: public
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        temp:
+          use_jdbc_metadata_defaults: false
+    connection:
+      provider_disables_autocommit: true
+      provider_class: org.hibernate.hikaricp.internal.HikariCPConnectionProvider
+      driver_class: org.postgresql.Driver
+      sslmode: require
+      ssl: true

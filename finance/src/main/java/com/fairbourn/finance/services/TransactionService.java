@@ -8,16 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-import com.fairbourn.finance.databaseAccessObjects.TransactionDao;
+import com.fairbourn.finance.databaseAccessObjects.TransactionDatabaseAccessObject;
 import com.fairbourn.finance.model.Transaction;
 
 @Service
 public class TransactionService {
 
-	private final TransactionDao transactionDao;
+	private final TransactionDatabaseAccessObject transactionDao;
 	
 	@Autowired
-	public TransactionService(@Qualifier("inMemory") TransactionDao transactionDao) { //@Qualifier("inMemory") points to the TransactionDataAccessService. //TODO: Replace with mySQL or mongoDB
+	public TransactionService(@Qualifier("postgres") TransactionDatabaseAccessObject transactionDao) { //@Qualifier("inMemory") points to the TransactionDataAccessService. //TODO: Replace with mySQL or mongoDB
 		this.transactionDao = transactionDao;
 	}
 

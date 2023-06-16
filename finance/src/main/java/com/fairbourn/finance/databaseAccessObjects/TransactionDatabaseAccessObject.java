@@ -6,7 +6,7 @@ import java.util.UUID;
 
 import com.fairbourn.finance.model.Transaction;
 
-public interface TransactionDao {
+public interface TransactionDatabaseAccessObject {
 
 	boolean insertTransaction(UUID id, Transaction transaction);
 	
