@@ -1,4 +1,4 @@
-package com.fairbourn.finance.databaseAccessObjects;
+package com.fairbourn.finance.databaseAccessObjects.implementation.inMemory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,6 +7,7 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Repository;
 
+import com.fairbourn.finance.databaseAccessObjects.TransactionDatabaseAccessObject;
 import com.fairbourn.finance.model.Transaction;
 
 @Repository("inMemory")

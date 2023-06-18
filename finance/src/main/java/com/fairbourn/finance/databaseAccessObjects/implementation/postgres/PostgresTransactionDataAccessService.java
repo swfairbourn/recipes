@@ -1,4 +1,4 @@
-package com.fairbourn.finance.databaseAccessObjects.implementation;
+package com.fairbourn.finance.databaseAccessObjects.implementation.postgres;
 
 import java.sql.PreparedStatement;
 import java.util.List;
