@@ -1,22 +1,10 @@
 <div class='card'>
     <div class='card-header center'>
       <h1>{{title}}</h1>
+    </div>  
+    <div class="new-transaction-container">
+      <button class='btn btn-primary' (click)="openOverlay()">Create New Transaction</button>
     </div>
-    <div class='card-body'>
-      <div class='row'>
-        <div class='col-md-2'>Merchant:</div>
-        <div class='col-md-3'>
-            <input type='text' #merchantInput [(ngModel)]="merchantValue">
-        </div>
-        <div class='col-md-2'>Cost:</div>
-        <div class='col-md-3'>
-          <input type='text' #costInput [(ngModel)]="costValue">
-        </div>
-        <div class='col-md-2'>
-          <button class='btn btn-primary' (click)='submitTransaction(merchantInput.value, costInput.value)'>Submit</button>
-        </div>
-      </div>
-  
       <table class="table table-striped table-sm">
         <thead>
           <tr>
@@ -52,4 +40,3 @@
         </tbody>
       </table>
     </div>
-  </div>

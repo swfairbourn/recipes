@@ -3,6 +3,7 @@ import { ITransaction } from './transaction';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, Subscription, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
+import { OverlayService } from 'src/app/overlay/overlay.service';
 
 @Component({
   selector: 'transactions-root',
@@ -17,7 +18,7 @@ export class TransactionComponent implements OnInit, OnDestroy {
   errorMessage: string = '';
   subscriptions: Subscription = new Subscription();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private overlayService: OverlayService) { }
 
   ngOnInit(): void {
     this.subscriptions.add(this.getAllTransactions().subscribe({
@@ -30,20 +31,15 @@ export class TransactionComponent implements OnInit, OnDestroy {
     this.subscriptions.unsubscribe();
   }
 
+  openOverlay() {
+    this.overlayService.openOverlay();
+  }
+
   getAllTransactions(): Observable<ITransaction[]>{
     return this.http.get<ITransaction[]>("http://localhost:8080/api/v1/transaction/getAllTransactions").pipe(
       tap(data => console.log('All', JSON.stringify(data))),
       catchError(this.handleError)
     );
-  }
-
-  submitTransaction(merchant: string, cost: string): void {
-    const headers = {'Content-Type': 'application/json'};
-    const body = {"merchant": merchant,  "cost": cost};
-    this.subscriptions.add(this.http.post("http://localhost:8080/api/v1/transaction/insertTransaction", body, { headers }).subscribe());
-    this.merchantValue = '';
-    this.costValue = '';
-    this.reloadPage();
   }
   
   updateTransaction(transactionId: string, merchant: string, cost: string): void {

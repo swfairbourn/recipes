@@ -1,0 +1,27 @@
+<div *ngIf="overlayVisible" class="overlay">
+  <div class="overlay-content">
+    <h1>Create New Transaction</h1>
+    <form #transactionForm="ngForm" (ngSubmit)="submitForm()">
+      <div>
+        <label for="merchantInput">Merchant:</label>
+        <input type="text" id="merchantInput" name="merchantInput" [(ngModel)]="merchantValue" required>
+      </div>
+      <div>
+        <label for="amountInput">Amount:</label>
+        <input type="number" id="amountInput" name="amountInput" [(ngModel)]="amountValue" placeholder="0.00" (blur)="roundAmount()" required>
+      </div>
+      <div>
+        <label for="categoryInput">Category:</label>
+        <input type="text" id="categoryInput" name="categoryInput" [(ngModel)]="categoryValue" required>
+      </div>
+      <div>
+        <label for="dateInput">Date:</label>
+        <input type="date" id="dateInput" name="dateInput" [(ngModel)]="dateValue" required>
+      </div>
+      <div>
+        <button class='btn btn-primary' type="submit" [disabled]="transactionForm.invalid">Submit</button>
+        <button class='btn btn-danger' type="button" (click)="closeOverlayAndReloadTransactions()">Cancel</button>
+      </div>
+    </form>
+  </div>
+</div>
