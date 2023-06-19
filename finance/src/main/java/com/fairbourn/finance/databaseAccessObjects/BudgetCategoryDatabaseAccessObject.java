@@ -5,8 +5,8 @@ import java.util.List;
 import com.fairbourn.finance.model.BudgetCategory;
 
 public interface BudgetCategoryDatabaseAccessObject {
-    void createCategory(BudgetCategory category);
-    void deleteCategory(BudgetCategory category);
+    void insertCategory(BudgetCategory category);
+    void deleteCategory(int categoryId);
     List<BudgetCategory> getAllCategories();
 }
 

@@ -1,31 +1,32 @@
 package com.fairbourn.finance.model;
 
-public enum BudgetCategory {
-    CHILDCARE_EDUCATION,
-    CLOTHING_ACCESSORIES,
-    COMMUNICATION,
-    DEBT_PAYMENTS,
-    EDUCATION,
-    ELECTRONICS_GADGETS,
-    ENTERTAINMENT,
-    FINANCIAL_FEES,
-    FOOD,
-    GIFTS_DONATIONS,
-    HEALTHCARE,
-    HOME_FURNISHINGS,
-    HOME_MAINTENANCE,
-    HOUSING,
-    INSURANCE,
-    MISCELLANEOUS,
-    PET_CARE,
-    PERSONAL_CARE,
-    RETIREMENT_SAVINGS,
-    SAVINGS_INVESTMENTS,
-    SUBSCRIPTIONS,
-    TAXES,
-    TRAVEL_VACATION,
-    TRANSPORTATION,
-    UTILITIES
+public class BudgetCategory {
+	
+    private int id;
+    private String value;
+    
+    public BudgetCategory() {}
+
+    public BudgetCategory(int id, String value) {
+        this.id = id;
+        this.value = value;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
 }
 
 
