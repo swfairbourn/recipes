@@ -8,7 +8,7 @@ import com.fairbourn.finance.model.Income;
 public interface IncomeDatabaseAccessObject {
     void insertIncome(Income income);
     
-    void updateIncome(Income income);
+    boolean updateIncome(Income income);
     
     Income getIncomeById(int id);
     
@@ -16,6 +16,6 @@ public interface IncomeDatabaseAccessObject {
     
     List<Income> getIncomeByDateRange(LocalDate startDate, LocalDate endDate);
     
-    void deleteIncome(int id);
+    boolean deleteIncome(int id);
 }
 

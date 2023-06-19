@@ -1,7 +1,7 @@
 package com.fairbourn.finance.databaseAccessObjects.implementation.postgres.budgetCategory;
 
 import org.springframework.jdbc.core.JdbcTemplate;
-
+import com.fairbourn.finance.databaseAccessObjects.BudgetCategoryDatabaseAccessObject;
 import com.fairbourn.finance.model.BudgetCategory;
 
 import java.util.List;

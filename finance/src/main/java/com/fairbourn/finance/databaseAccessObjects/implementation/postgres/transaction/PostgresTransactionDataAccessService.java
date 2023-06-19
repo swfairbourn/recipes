@@ -1,4 +1,4 @@
-package com.fairbourn.finance.databaseAccessObjects.implementation.postgres;
+package com.fairbourn.finance.databaseAccessObjects.implementation.postgres.transaction;
 
 import java.sql.PreparedStatement;
 import java.util.List;
@@ -17,8 +17,12 @@ import com.fairbourn.finance.model.Transaction;
 @Repository("postgres")
 public class PostgresTransactionDataAccessService implements TransactionDatabaseAccessObject {
 
-    @Autowired
     private JdbcTemplate jdbcTemplate;
+    
+    @Autowired
+    public PostgresTransactionDataAccessService(JdbcTemplate jdbcTemplate) {
+		this.jdbcTemplate = jdbcTemplate;
+	}
 
     @Override
     public boolean insertTransaction(UUID id, Transaction transaction) {

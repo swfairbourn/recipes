@@ -2,15 +2,12 @@ package com.fairbourn.finance.databaseAccessObjects.implementation.postgres.inco
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Repository;
-
 import com.fairbourn.finance.databaseAccessObjects.IncomeDatabaseAccessObject;
 import com.fairbourn.finance.model.Income;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Repository
 public class PostgresIncomeDataAccessService implements IncomeDatabaseAccessObject {
     private final JdbcTemplate jdbcTemplate;
 
@@ -26,9 +23,10 @@ public class PostgresIncomeDataAccessService implements IncomeDatabaseAccessObje
     }
 
     @Override
-    public void updateIncome(Income income) {
+    public boolean updateIncome(Income income) {
         String sql = "UPDATE income SET source = ?, date = ?, amount = ? WHERE id = ?";
-        jdbcTemplate.update(sql, income.getSource(), income.getDate(), income.getAmount(), income.getId());
+        int rowsAffected = jdbcTemplate.update(sql, income.getSource(), income.getDate(), income.getAmount(), income.getId());
+        return rowsAffected > 0;
     }
 
     @Override
@@ -50,9 +48,10 @@ public class PostgresIncomeDataAccessService implements IncomeDatabaseAccessObje
     }
     
     @Override
-    public void deleteIncome(int incomeId) {
+    public boolean deleteIncome(int incomeId) {
         String sql = "DELETE FROM income WHERE id = ?";
-        jdbcTemplate.update(sql, incomeId);
+        int rowsAffected = jdbcTemplate.update(sql, incomeId);
+        return rowsAffected > 0;
     }
 }
 

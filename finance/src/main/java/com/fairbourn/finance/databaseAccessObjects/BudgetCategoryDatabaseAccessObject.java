@@ -1,4 +1,4 @@
-package com.fairbourn.finance.databaseAccessObjects.implementation.postgres.budgetCategory;
+package com.fairbourn.finance.databaseAccessObjects;
 
 import java.util.List;
 
