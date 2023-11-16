@@ -1,4 +1,4 @@
-package com.fairbourn.finance.config;
+package com.fairbourn.recipes.config;
 
 import java.util.Arrays;
 

@@ -1,10 +1,10 @@
-package com.fairbourn.finance;
+package com.fairbourn.recipes;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class FinanceApplicationTests {
+class RecipesApplicationTests {
 
 	@Test
 	void contextLoads() {

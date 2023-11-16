@@ -1,4 +1,4 @@
-package com.fairbourn.finance.config;
+package com.fairbourn.recipes.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;

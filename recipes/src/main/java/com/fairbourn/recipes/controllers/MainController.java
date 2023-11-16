@@ -1,4 +1,4 @@
-package com.fairbourn.finance.controllers;
+package com.fairbourn.recipes.controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,8 +13,4 @@ public class MainController {
 		return "home";
 	}
 	
-	@GetMapping("/budget")
-	public String getBudgetPage(Model model) {
-		return "budget";
-	}
 }

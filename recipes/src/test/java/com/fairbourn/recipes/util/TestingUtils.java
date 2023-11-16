@@ -1,4 +1,4 @@
-package com.fairbourn.finance.util;
+package com.fairbourn.recipes.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
