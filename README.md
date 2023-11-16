@@ -1,5 +1,5 @@
-# Finance
-Finance and budgeting tools with a spring boot server
+# Recipes
+Recipes and meal planning tools with a spring boot server
 
 ## Development Server
 Start up postgres in a docker container. Then run the `FinanceApplication` from your IDE.
