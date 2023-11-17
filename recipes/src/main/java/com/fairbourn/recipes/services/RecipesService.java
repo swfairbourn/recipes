@@ -6,16 +6,18 @@ import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 import com.fairbourn.recipes.databaseAccessObjects.RecipeDatabaseAccessObject;
 import com.fairbourn.recipes.model.Recipe;
 
+@Service
 public class RecipesService {
 
 	private final RecipeDatabaseAccessObject databaseAccessObject;
 	
 	@Autowired
-	public RecipesService(@Qualifier("postgres") RecipeDatabaseAccessObject databaseAccessObject) {
+	public RecipesService(@Qualifier("inMemory") RecipeDatabaseAccessObject databaseAccessObject) {
 		this.databaseAccessObject = databaseAccessObject;
 	}
 	

@@ -36,8 +36,15 @@ public class RecipesControllerTest {
 	public void insertRecipe_sucess() throws Exception {
 		RequestBuilder requestBuilder = MockMvcRequestBuilders
 				.post("/api/v1/recipes/insertRecipe")
-				.contentType(MediaType.APPLICATION_JSON);
-//	            .content("{\"title\":\"Brownies\",\"rating\":5}");
+				.contentType(MediaType.APPLICATION_JSON)
+	            .content("{"
+	            		+ "\"title\": \"Sample Recipe\","
+	            		+ "\"rating\": 4,"
+	            		+ "\"instructions\": [\"Step 1: Preheat the oven...\", \"Step 2: Mix the ingredients...\"],"
+	            		+ "\"description\": \"A delicious sample recipe for testing purposes.\","
+	            		+ "\"nationality\": \"International\","
+	            		+ "\"tags\": [\"easy\", \"quick\", \"dessert\"]"
+	            		+ "}");
 		
 		mockMvc.perform(requestBuilder)
 				.andExpect(status().isCreated());

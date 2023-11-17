@@ -26,12 +26,12 @@ import jakarta.servlet.http.HttpServletResponse;
 public class RecipesController {
 
 	private final RecipesService recipesService;
-	
+
 	@Autowired
 	public RecipesController(RecipesService recipesService) {
 		this.recipesService = recipesService;
 	}
-	
+
 	@PostMapping("/insertRecipe")
 	public void insertRecipe(@RequestBody Recipe recipe, HttpServletResponse response) {
 		boolean inserted = recipesService.insertRecipe(recipe);
@@ -41,34 +41,35 @@ public class RecipesController {
 			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Failed to insert recipe");
 		}
 	}
-	
+
 	@GetMapping("/getAllRecipes")
 	public List<Recipe> getAllRecipes() {
 		return recipesService.getAllRecipes();
 	}
-	
-	@GetMapping(path ="/{id}")
+
+	@GetMapping(path = "/{id}")
 	public Recipe getRecipeById(@PathVariable("id") UUID id) {
 		Optional<Recipe> recipe = recipesService.getRecipeById(id);
 		if (recipe.isPresent()) {
 			return recipe.get();
 		} else {
-			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Transaction not found");
+			throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Recipe not found");
 		}
 	}
-	
+
 	@DeleteMapping(path = "/{id}")
 	public void deleteRecipeById(@PathVariable("id") UUID id) {
 		recipesService.deleteRecipeById(id);
 	}
-	
+
 	@PutMapping(path = "/{id}")
-	public void updateRecipeById(@PathVariable("id") UUID id, @RequestBody Recipe recipe, HttpServletResponse response) {
+	public void updateRecipeById(@PathVariable("id") UUID id, @RequestBody Recipe recipe,
+			HttpServletResponse response) {
 		boolean updated = recipesService.updateRecipeById(id, recipe);
 		if (updated) {
 			response.setStatus(HttpServletResponse.SC_OK);
 		} else {
-			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Failed to insert transaction");
+			throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Failed to insert recipe");
 		}
 	}
 }

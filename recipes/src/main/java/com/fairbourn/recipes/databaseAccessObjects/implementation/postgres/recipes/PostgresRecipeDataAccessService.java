@@ -9,10 +9,12 @@ import java.util.UUID;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.ResultSetExtractor;
+import org.springframework.stereotype.Repository;
 
 import com.fairbourn.recipes.databaseAccessObjects.RecipeDatabaseAccessObject;
 import com.fairbourn.recipes.model.Recipe;
 
+@Repository("postgres")
 public class PostgresRecipeDataAccessService implements RecipeDatabaseAccessObject{
 
 	private JdbcTemplate jdbcTemplate;
