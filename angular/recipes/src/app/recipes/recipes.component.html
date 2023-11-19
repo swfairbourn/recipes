@@ -35,7 +35,7 @@
                 <td>{{ recipe.title }}</td>
                 <td>{{ recipe.rating }}</td>
                 <td>{{ recipe.nationality }}</td>
-                <td>{{ recipe.tags }}</td>
+                <td>{{ recipe.tags.join(', ') }}</td>
             </tr>
         </tbody>
     </table>
