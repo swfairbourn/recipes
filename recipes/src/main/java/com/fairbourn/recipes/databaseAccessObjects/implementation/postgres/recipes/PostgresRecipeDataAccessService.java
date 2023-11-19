@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import com.fairbourn.recipes.databaseAccessObjects.RecipeDatabaseAccessObject;
 import com.fairbourn.recipes.model.Recipe;
+import com.fairbourn.recipes.model.Ingredient;
 
 @Repository("postgres")
 public class PostgresRecipeDataAccessService implements RecipeDatabaseAccessObject{
@@ -26,7 +27,7 @@ public class PostgresRecipeDataAccessService implements RecipeDatabaseAccessObje
 	@Override
 	public boolean insertRecipe(UUID id, Recipe recipe) {
 		String sql = "INSERT INTO recipes (id, title, rating, instructions, directions, nationality, tags) VALUES (?, ?, ?, ?, ?, ?, ?)";
-        int rowsAffected = jdbcTemplate.update(sql, id, recipe.getTitle(), recipe.getRating(), recipe.getInstructions(), recipe.getDirections(), recipe.getNationality(), recipe.getTags());
+        int rowsAffected = jdbcTemplate.update(sql, id, recipe.getTitle(), recipe.getRating(), recipe.getIngredients(), recipe.getDirections(), recipe.getNationality(), recipe.getTags());
         return rowsAffected > 0;
 	}
 
@@ -37,7 +38,7 @@ public class PostgresRecipeDataAccessService implements RecipeDatabaseAccessObje
             rs.getObject("id", UUID.class),
             rs.getString("title"),
             rs.getInt("rating"),
-            (List<String>) rs.getObject("instructions", ArrayList.class),
+            (List<Ingredient>) rs.getObject("ingredients", ArrayList.class),
             rs.getString("directions"),
             rs.getString("nationality"),
             (List<String>) rs.getObject("tags", ArrayList.class)
@@ -58,7 +59,7 @@ public class PostgresRecipeDataAccessService implements RecipeDatabaseAccessObje
 	        			rs.getObject("id", UUID.class),
 	                    rs.getString("title"),
 	                    rs.getInt("rating"),
-	                    (List<String>) rs.getObject("instructions", ArrayList.class),
+	                    (List<Ingredient>) rs.getObject("ingredients", ArrayList.class),
 	                    rs.getString("directions"),
 	                    rs.getString("nationality"),
 	                    (List<String>) rs.getObject("tags", ArrayList.class)
@@ -81,7 +82,7 @@ public class PostgresRecipeDataAccessService implements RecipeDatabaseAccessObje
 	    @Override
 	    public boolean updateRecipeById(UUID id, Recipe recipe) {
 	        String sql = "UPDATE recipes SET title = ?, rating = ?, instructions = ?, directions = ?, nationality = ?, tags = ? WHERE id = ?";
-	        int rowsAffected = jdbcTemplate.update(sql, recipe.getTitle(), recipe.getRating(), recipe.getInstructions(), recipe.getDirections(), recipe.getNationality(), recipe.getTags(), id);
+	        int rowsAffected = jdbcTemplate.update(sql, recipe.getTitle(), recipe.getRating(), recipe.getIngredients(), recipe.getDirections(), recipe.getNationality(), recipe.getTags(), id);
 	        return rowsAffected > 0;
 	    }
 }

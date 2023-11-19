@@ -1,0 +1,42 @@
+<div id="sorting">
+    <app-sorting></app-sorting>
+</div>
+<button type="button" class="btn btn-primary">Add Recipe</button>
+<div id="recipesId">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th scope="col" class="col-2">Recipe</th>
+                <th scope="col" class="col-2">Rating</th>
+                <th scope="col" class="col-2">Nationality</th>
+                <th scope="col" class="col-2">Tags</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Brownies</td>
+                <td>5</td>
+                <td>American</td>
+                <td>Dessert, Baking</td>
+            </tr>
+            <tr>
+                <td>Tacos</td>
+                <td>3</td>
+                <td>Mexican</td>
+                <td>Dinner</td>
+            </tr>
+            <tr>
+                <td>Steak</td>
+                <td>5</td>
+                <td>American</td>
+                <td>Dinner, Beef</td>
+            </tr>
+            <tr *ngFor='let recipe of recipes'>
+                <td>{{ recipe.title }}</td>
+                <td>{{ recipe.rating }}</td>
+                <td>{{ recipe.nationality }}</td>
+                <td>{{ recipe.tags }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -20,7 +20,7 @@ public class InMemoryRecipeDataAccessService implements RecipeDatabaseAccessObje
 		DB.add(new Recipe(id, 
 				recipe.getTitle(),
 				recipe.getRating(),
-				recipe.getInstructions(),
+				recipe.getIngredients(),
 				recipe.getDirections(),
 				recipe.getNationality(),
 				recipe.getTags()));
@@ -60,7 +60,7 @@ public class InMemoryRecipeDataAccessService implements RecipeDatabaseAccessObje
 						DB.set(indexOfTransactionToDelete, new Recipe(id, 
 								recipe.getTitle(),
 								recipe.getRating(),
-								recipe.getInstructions(), 
+								recipe.getIngredients(), 
 								recipe.getDirections(), 
 								recipe.getNationality(),
 								recipe.getTags()));

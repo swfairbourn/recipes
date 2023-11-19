@@ -10,7 +10,7 @@ public class Recipe {
 	private UUID recipeId;
 	private String title;
 	private int rating;
-	private List<String> instructions;
+	private List<Ingredient> ingredients;
 	private String directions;
 	private String nationality;
 	private List<String> tags;
@@ -19,7 +19,7 @@ public class Recipe {
 			@JsonProperty("recipeId") UUID recipeId,
 			@JsonProperty("title") String title,
 			@JsonProperty("rating") int rating,
-			@JsonProperty("instructions") List<String> instructions,
+			@JsonProperty("ingredients") List<Ingredient> ingredients,
 			@JsonProperty("directions") String directions,
 			@JsonProperty("nationality") String nationality,
 			@JsonProperty("tags") List<String> tags
@@ -27,7 +27,7 @@ public class Recipe {
 		this.recipeId = recipeId;
 		this.title = title;
 		this.rating = rating;
-		this.instructions = instructions;
+		this.ingredients = ingredients;
 		this.directions = directions;
 		this.nationality = nationality;
 		this.tags = tags;
@@ -53,12 +53,12 @@ public class Recipe {
 		this.rating = rating;
 	}
 
-	public List<String> getInstructions() {
-		return instructions;
+	public List<Ingredient> getIngredients() {
+		return ingredients;
 	}
 
-	public void setInstructions(List<String> instructions) {
-		this.instructions = instructions;
+	public void setIngredients(List<Ingredient> ingredients) {
+		this.ingredients = ingredients;
 	}
 
 	public String getDirections() {

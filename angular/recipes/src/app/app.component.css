@@ -1,0 +1,11 @@
+#sidebar {
+    width: 200px;
+    float: left;
+    height: 100vh;
+    background-color: #333333;
+}
+
+#content {
+    height: 100vh;
+    background-color: #DDDDDD;
+}
