@@ -1,0 +1,57 @@
+<div class="container">
+    <form>
+        <div class="mb-5 mt-5"> <!-- mb is margin bottom, mt is margin top -->
+            <h5>Ratings</h5>
+            <!-- Filled in stars are fa fa-star, empty stars are far fa-star, half stars are fas fa-star-half-alt -->
+            <div class="star-rating" *ngFor="let rating of [5, 4, 3, 2, 1]; let i = index">
+                <div class="form-check">
+                    <input 
+                      class="form-check-input"
+                      id="ratingCheckbox{{i}}"
+                      type="checkbox" 
+                      [value]="rating"
+                      [checked]="rating"
+                      (change)="onRatingChange($event)">
+                    <label class="form-check-label" for="ratingCheckbox{{i}}">
+                        <i class="fa fa-star" *ngFor="let star of [].constructor(rating)"></i>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="mb-5">
+            <h5>Nationality</h5>
+            <div *ngFor="let nationality of nationalities; let i = index">
+                <div class="form-check">
+                    <input 
+                      class="form-check-input"
+                      id="nationalityCheckbox{{i}}"
+                      type="checkbox" 
+                      [value]="i" 
+                      [checked]="nationality"
+                      (change)="onNationalityChange($event)">
+                    <label class="form-check-label" for="nationalityCheckbox{{i}}">
+                        {{nationality}}
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="mb-5">
+            <h5>Tags</h5>
+            <div *ngFor="let tag of tags; let i = index">
+                <div class="form-check">
+                    <input 
+                      class="form-check-input"
+                      id="tagCheckbox{{i}}"
+                      type="checkbox" 
+                      [value]="i"  
+                      [checked]="tag"
+                      (change)="onTagChange($event)">
+                    <label class="form-check-label" for="tagCheckbox{{i}}">
+                        {{ tag }}
+                    </label>
+                </div>
+            </div>
+          </div>
+        <button type="button" class="btn btn-primary" (click)="updateFilters()">Update</button>
+  </form>
+</div>

@@ -14,4 +14,8 @@ export class RecipeService {
   getAllRecipes(): Observable<any[]> {
     return this.http.get<any[]>(`${this.baseUrl}/getAllRecipes`);
   }
+
+  getAllRecipesMatchingCriteria(recipeCriteria: any): Observable<any[]> {
+    return this.http.post<any[]>(`${this.baseUrl}/getAllRecipesMatchingCriteria`, recipeCriteria);
+  }
 }

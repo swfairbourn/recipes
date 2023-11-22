@@ -1,0 +1,12 @@
+.container {
+    height: 94vh;
+    max-height: 94vh;
+    overflow-y: auto;
+    border-right: black;
+    border-right-style: solid;
+    min-width: 150px;
+}
+
+.star-rating {
+    color: black;
+}

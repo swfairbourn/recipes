@@ -1,33 +1,30 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SortingComponent } from './sorting/sorting.component';
-import { RecipeService } from './recipe.service';
+import { FiltersComponent } from './filters/filters.component';
+import { RecipeService } from '../services/recipe.service';
+import { IRecipe } from '../models/recipe.model';
+import { Observable } from 'rxjs';
+import { RecipeCriteria } from '../models/recipe-criteria.model';
 
 @Component({
   selector: 'app-recipes',
   standalone: true,
-  imports: [CommonModule, SortingComponent],
+  imports: [CommonModule, FiltersComponent],
   templateUrl: './recipes.component.html',
   styleUrls: ['./recipes.component.css']
 })
 export class RecipesComponent implements OnInit {
 
-  recipes: any[] = []; // Adjust the type based on your actual Recipe model
+  recipes$!: Observable<IRecipe[]>;
+  recipeCriteria: RecipeCriteria = new RecipeCriteria([], [], []);
 
-  constructor(private recipeService: RecipeService) {}
+  constructor(private recipeService: RecipeService) { }
 
   ngOnInit() {
-    this.getRecipes();
+    this.recipes$ = this.recipeService.getAllRecipes();
   }
 
-  getRecipes() {
-    this.recipeService.getAllRecipes().subscribe(
-      (data: any[]) => {
-        this.recipes = data;
-      },
-      (error) => {
-        console.error('Error fetching recipes:', error);
-      }
-    );
+  getAllRecipesMatchingCriteria(criteria: RecipeCriteria) {
+    this.recipes$ = this.recipeService.getAllRecipesMatchingCriteria(criteria);
   }
 }
