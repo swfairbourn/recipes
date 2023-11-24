@@ -1,0 +1,13 @@
+.ingredients-section {
+    max-height: 250px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-left: 10px;
+}
+
+.tags-section {
+    max-height: 250px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-left: 10px;
+}

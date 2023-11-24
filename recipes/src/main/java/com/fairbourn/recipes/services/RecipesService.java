@@ -14,7 +14,7 @@ import com.fairbourn.recipes.databaseAccessObjects.RecipeDatabaseAccessObject;
 import com.fairbourn.recipes.model.Ingredient;
 import com.fairbourn.recipes.model.Recipe;
 import com.fairbourn.recipes.model.RecipeCriteria;
-import com.fairbourn.recipes.model.UnitOfMeasurment;
+import com.fairbourn.recipes.model.UnitOfMeasurement;
 
 @Service
 public class RecipesService {
@@ -53,7 +53,7 @@ public class RecipesService {
 	
 	public List<Recipe> getAllRecipesMatchingCriteria(RecipeCriteria recipeCriteria) {
 		//TODO: Get all recipes that match the criteria
-		List<Ingredient> ingredients = new ArrayList<>(Arrays.asList(new Ingredient("testIngredient", 10, UnitOfMeasurment.DASH)));
+		List<Ingredient> ingredients = new ArrayList<>(Arrays.asList(new Ingredient(10, UnitOfMeasurement.DASH, "testIngredient")));
 		List<String> tags = new ArrayList<>(Arrays.asList("Grill", "Dinner"));
 		Recipe recipe = new Recipe(UUID.randomUUID(), "titleTest", 5, ingredients, "These are the directions", "French", tags);
 		return new ArrayList<>(Arrays.asList(recipe));

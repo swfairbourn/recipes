@@ -1,0 +1,124 @@
+<div class="container">
+    <div class="row mb-3">
+        <div class="d-flex justify-content-center text-center">
+            <h2>Add a Recipe</h2>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-10">
+            <div class="input-group">
+                <span class="input-group-text" id="title">Title</span>
+                <input type="text" class="form-control" id="title" [(ngModel)]="title">
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <div class="input-group">
+                <span class="input-group-text" id="rating">Rating</span>
+                <input type="text" class="form-control" id="rating" [(ngModel)]="rating">
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <span>Ingredients</span>
+    </div>
+
+    <div class="ingredients-section mb-1">
+        <div class="row" id="ingredient-row" *ngFor="let ingredient of ingredients; let i = index">
+            <div class="col-md-3">
+                <div class="input-group">
+                    <span class="input-group-text" id="amount-{{i}}">Amount</span>
+                    <input type="text" class="form-control" id="amount-{{i}}" [(ngModel)]="ingredients[i].amount">
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="input-group">
+                    <span class="input-group-text" id="unit-of-measurement-{{i}}">Unit of Measurement</span>
+                    <select type="text" class="form-select" id="unit-of-measurement-{{i}}" *ngIf="unitsOfMeasurement$ | async as unitsOfMeasurement" [(ngModel)]="ingredients[i].unitOfMeasurement">
+                        <option value="" disabled selected></option>
+                        <option *ngFor="let unit of unitsOfMeasurement | keyvalue" [value]="unit.key">{{ unit.value }}</option>
+                    </select>               
+                </div>
+            </div>
+            <div class="col-md-4 mb-3">
+                <div class="input-group">
+                    <span class="input-group-text" id="ingredient-{{i}}">Ingredient</span>
+                    <input type="text" class="form-control" id="ingredient-{{i}}" [(ngModel)]="ingredients[i].ingredient">
+                </div>
+            </div>
+            <div class="col-md-1 mb-3">
+                <div class="input-group">
+                    <button type="button" class="btn btn-danger" (click)="removeIngredient(i)"><i class="fas fa-minus"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-success" (click)="addIngredient()"><i class="fas fa-plus"></i> Add Ingredient</button>
+        </div>
+    </div>
+
+    <div class="row">
+        <span>Directions</span>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <div class="form-group">
+                <textarea class="form-control" id="directions" rows="5" [(ngModel)]="directions"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-6">
+            <div class="input-group">
+                <span for="nationality-select" class="input-group-text">Nationality</span>
+                <input list="nationality-options" id="nationality-select" name="customSelect" class="form-control" [(ngModel)]="nationality">
+                <datalist id="nationality-options">
+                    <option *ngFor="let nationality of nationalities$ | async" [value]="nationality"></option>
+                </datalist>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <span>Tags</span>
+    </div>
+
+    <div class="tags-section mb-1">
+        <div class="row" id="tag-row" *ngFor="let tag of tags; let i = index  trackBy: trackByIndex">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span for="tag-select" class="input-group-text">Tag</span>
+                    <input list="tag-options" id="tag-select" name="customSelect" class="form-control" [(ngModel)]="tags[i]">
+                    <datalist id="tag-options">
+                        <option *ngFor="let tag of tags$ | async" [value]="tag"></option>
+                    </datalist>
+                </div>
+            </div>
+            <div class="col-md-1 mb-3">
+                <div class="input-group">
+                    <button type="button" class="btn btn-danger" (click)="removeTag(i)"><i class="fas fa-minus"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row mb-3">
+        <div class="col-md-12">
+            <button type="button" class="btn btn-success" (click)="addTag()"><i class="fas fa-plus"></i> Add Tag</button>
+        </div>
+    </div>
+    
+    <div class="row">
+        <button type="button" class="btn btn-success" (click)="saveRecipe()">Save Recipe</button>
+    </div>
+
+</div>

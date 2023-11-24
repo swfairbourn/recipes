@@ -4,42 +4,42 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Ingredient {
 
-	private String name;
-	private double value;
-	private UnitOfMeasurment unitOfMeasurement;
+	private double amount;
+	private UnitOfMeasurement unitOfMeasurement;
+	private String ingredient;
 	
 	public Ingredient(
-			@JsonProperty("name") String name,
-			@JsonProperty("value") double value,
-			@JsonProperty("unitOfMeasurement") UnitOfMeasurment unitOfMeasurement
+			@JsonProperty("value") double amount,
+			@JsonProperty("unitOfMeasurement") UnitOfMeasurement unitOfMeasurement,
+			@JsonProperty("ingredient") String ingredient
 	) {
-		this.name = name;
-		this.value = value;
+		this.amount = amount;
 		this.unitOfMeasurement = unitOfMeasurement;
+		this.ingredient = ingredient;
 	}
 
-	public String getName() {
-		return name;
+	public double getAmount() {
+		return amount;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setAmount(double amount) {
+		this.amount = amount;
 	}
 
-	public double getValue() {
-		return value;
-	}
-
-	public void setValue(double value) {
-		this.value = value;
-	}
-
-	public UnitOfMeasurment getUnitOfMeasurement() {
+	public UnitOfMeasurement getUnitOfMeasurement() {
 		return unitOfMeasurement;
 	}
 
-	public void setUnitOfMeasurement(UnitOfMeasurment unitOfMeasurement) {
+	public void setUnitOfMeasurement(UnitOfMeasurement unitOfMeasurement) {
 		this.unitOfMeasurement = unitOfMeasurement;
+	}
+	
+	public String getIngredient() {
+		return ingredient;
+	}
+
+	public void setIngredient(String ingredient) {
+		this.ingredient = ingredient;
 	}
 	
 }

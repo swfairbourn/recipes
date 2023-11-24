@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -7,15 +7,11 @@ import { Observable } from 'rxjs';
 })
 export class RecipeService {
 
-  private baseUrl = 'http://localhost:8080/api/v1/recipes';
+  private baseUrl = 'http://localhost:8080/api/v1/recipe';
 
   constructor(private http: HttpClient) {}
 
-  getAllRecipes(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/getAllRecipes`);
-  }
-
-  getAllRecipesMatchingCriteria(recipeCriteria: any): Observable<any[]> {
-    return this.http.post<any[]>(`${this.baseUrl}/getAllRecipesMatchingCriteria`, recipeCriteria);
+  getAllUnitsOfMeasurement(): Observable<Map<string, string>> {
+    return this.http.get<Map<string, string>>(`${this.baseUrl}/getAllUnitsOfMeasurement`);
   }
 }
