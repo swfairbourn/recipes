@@ -22,12 +22,12 @@
                     </thead>
                     <tbody>
                         <ng-container *ngFor="let recipe of recipes$ | async">
-                            <tr>
-                                <td>{{ recipe.title }}</td>
-                                <td>{{ recipe.rating }}</td>
-                                <td>{{ recipe.nationality }}</td>
-                                <td>{{ recipe.tags.join(', ') }}</td>
-                            </tr>
+                                <tr [routerLink]="[recipe.recipeId]" class="cursor-pointer">
+                                    <td>{{ recipe.title }}</td>
+                                    <td>{{ recipe.rating }}</td>
+                                    <td>{{ recipe.nationality }}</td>
+                                    <td>{{ recipe.tags.join(', ') }}</td>
+                                </tr>
                         </ng-container>
                     </tbody>
                 </table>

@@ -18,6 +18,7 @@ import { RecipesService } from '../services/recipes.service';
 })
 export class AddRecipeComponent implements OnInit {
 
+  recipeId: string;
   title: string;
   rating: number;
   ingredients: IIngredient[];
@@ -35,6 +36,7 @@ export class AddRecipeComponent implements OnInit {
     private nationalitiesService: NationalitiesService,
     private tagsService: TagsService
   ) {
+    this.recipeId = "";
     this.title = "";
     this.rating = 0;
     this.ingredients = [];
@@ -77,6 +79,7 @@ export class AddRecipeComponent implements OnInit {
 
   saveRecipe() {
     const newRecipe: IRecipe = {
+      recipeId: this.recipeId,
       title: this.title,
       rating: this.rating,
       ingredients: this.ingredients,
@@ -84,7 +87,7 @@ export class AddRecipeComponent implements OnInit {
       nationality: this.nationality,
       tags: this.tags
     }
-    console.log(newRecipe);
+
     this.recipesService.insertRecipe(newRecipe).subscribe(
       response => {
         console.log('Recipe inserted successfully', response);

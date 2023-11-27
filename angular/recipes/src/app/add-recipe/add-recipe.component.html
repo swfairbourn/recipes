@@ -32,7 +32,7 @@
             <div class="col-md-3">
                 <div class="input-group">
                     <span class="input-group-text" id="amount-{{i}}">Amount</span>
-                    <input type="text" class="form-control" id="amount-{{i}}" [(ngModel)]="ingredients[i].amount">
+                    <input type="text" class="form-control" id="amount-{{i}}" [(ngModel)]="ingredients[i].amount" autocomplete="off">
                 </div>
             </div>
             <div class="col-md-4 mb-3">
@@ -47,7 +47,7 @@
             <div class="col-md-4 mb-3">
                 <div class="input-group">
                     <span class="input-group-text" id="ingredient-{{i}}">Ingredient</span>
-                    <input type="text" class="form-control" id="ingredient-{{i}}" [(ngModel)]="ingredients[i].ingredient">
+                    <input type="text" class="form-control" id="ingredient-{{i}}" [(ngModel)]="ingredients[i].ingredient" autocomplete="off">
                 </div>
             </div>
             <div class="col-md-1 mb-3">
@@ -80,7 +80,7 @@
         <div class="col-md-6">
             <div class="input-group">
                 <span for="nationality-select" class="input-group-text">Nationality</span>
-                <input list="nationality-options" id="nationality-select" name="customSelect" class="form-control" [(ngModel)]="nationality">
+                <input list="nationality-options" id="nationality-select" name="customSelect" class="form-control" [(ngModel)]="nationality" autocomplete="off">
                 <datalist id="nationality-options">
                     <option *ngFor="let nationality of nationalities$ | async" [value]="nationality"></option>
                 </datalist>
@@ -97,7 +97,7 @@
             <div class="col-md-6">
                 <div class="input-group">
                     <span for="tag-select" class="input-group-text">Tag</span>
-                    <input list="tag-options" id="tag-select" name="customSelect" class="form-control" [(ngModel)]="tags[i]">
+                    <input list="tag-options" id="tag-select" name="customSelect" class="form-control" [(ngModel)]="tags[i]" autocomplete="off">
                     <datalist id="tag-options">
                         <option *ngFor="let tag of tags$ | async" [value]="tag"></option>
                     </datalist>

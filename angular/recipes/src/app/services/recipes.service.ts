@@ -23,4 +23,9 @@ export class RecipesService {
   insertRecipe(newRecipe: IRecipe) {
     return this.http.post<any[]>(`${this.baseUrl}/insertRecipe`, newRecipe);
   }
+
+  getRecipeById(recipeId: string): Observable<IRecipe> {
+    return this.http.get<IRecipe>(`${this.baseUrl}/${recipeId}`);
+  }
+
 }
