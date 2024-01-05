@@ -1,8 +1,8 @@
 app:
   datasource:
-    jdbc-url: jdbc:postgresql://localhost:5432/postgres
+    jdbc-url: jdbc:postgresql://db:5432/postgres
     username: postgres
-    password: Pr0fess0r
+    password: password-placeholder
   jpa:
     properties:
       hibernate:
