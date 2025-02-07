@@ -26,6 +26,7 @@ public class PostgresRecipeDataAccessService implements RecipeDatabaseAccessObje
 
 	@Override
 	public boolean insertRecipe(UUID id, Recipe recipe) {
+		System.out.println("Inserting recipe into postgres: " + recipe.getTitle());
 		String sql = "INSERT INTO recipes (id, title, rating, instructions, directions, nationality, tags) VALUES (?, ?, ?, ?, ?, ?, ?)";
         int rowsAffected = jdbcTemplate.update(sql, id, recipe.getTitle(), recipe.getRating(), recipe.getIngredients(), recipe.getDirections(), recipe.getNationality(), recipe.getTags());
         return rowsAffected > 0;

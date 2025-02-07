@@ -2,6 +2,7 @@ package com.fairbourn.recipes.services;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -27,7 +28,9 @@ public class RecipesService {
 	}
 	
 	public List<Recipe> getAllRecipes() {
-		return databaseAccessObject.getAllRecipes();
+		List<Recipe> recipes = databaseAccessObject.getAllRecipes();
+		recipes.sort(Comparator.comparing(Recipe::getTitle));
+		return recipes;
 	}
 	
 	public boolean insertRecipe(Recipe recipe) {
