@@ -29,6 +29,7 @@ export class AddRecipeComponent implements OnInit {
   isEditing: boolean = false;
   saveMessage: string = '';
   saveError: boolean = false;
+  titleError: string = '';
 
   unitsOfMeasurement$!: Observable<Map<string, string>>;
   nationalities$!: Observable<string[]>;
@@ -96,6 +97,10 @@ export class AddRecipeComponent implements OnInit {
     return index;
   }
 
+  onTitleChange(): void {
+    this.titleError = '';
+  }
+
   saveRecipe() {
     const newRecipe: IRecipe = {
       recipeId: this.recipeId,
@@ -107,19 +112,43 @@ export class AddRecipeComponent implements OnInit {
       tags: this.tags
     };
 
-    const operation$ = this.isEditing
-      ? this.recipesService.updateRecipe(newRecipe)
-      : this.recipesService.insertRecipe(newRecipe);
+    // When editing, exclude the current recipe's own ID so saving without
+    // changing the title is still allowed.
+    const excludeId = this.isEditing ? this.recipeId : '';
 
-    operation$.subscribe({
-      next: (response) => {
-        console.log('Recipe saved successfully', response);
-        this.saveMessage = 'Recipe saved successfully!';
-        this.saveError = false;
-        setTimeout(() => this.router.navigate(['/recipes']), 1500);
+    this.recipesService.getAllRecipes().subscribe({
+      next: (recipes: IRecipe[]) => {
+        const titleTaken = recipes.some(
+          r =>
+            r.title.toLowerCase() === newRecipe.title.trim().toLowerCase() &&
+            r.recipeId !== excludeId
+        );
+
+        if (titleTaken) {
+          this.titleError = 'A recipe with this title already exists. Please choose a unique title.';
+          return;
+        }
+
+        const operation$ = this.isEditing
+          ? this.recipesService.updateRecipe(newRecipe)
+          : this.recipesService.insertRecipe(newRecipe);
+
+        operation$.subscribe({
+          next: (response) => {
+            console.log('Recipe saved successfully', response);
+            this.saveMessage = 'Recipe saved successfully!';
+            this.saveError = false;
+            setTimeout(() => this.router.navigate(['/recipes']), 1500);
+          },
+          error: (error) => {
+            console.error('Error saving recipe', error);
+            this.saveMessage = 'Failed to save recipe. Please try again.';
+            this.saveError = true;
+          }
+        });
       },
       error: (error) => {
-        console.error('Error saving recipe', error);
+        console.error('Error checking for duplicate titles', error);
         this.saveMessage = 'Failed to save recipe. Please try again.';
         this.saveError = true;
       }

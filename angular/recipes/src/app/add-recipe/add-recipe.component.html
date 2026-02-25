@@ -9,8 +9,9 @@
         <div class="col-md-10">
             <div class="input-group">
                 <span class="input-group-text" id="title">Title</span>
-                <input type="text" class="form-control" id="title" [(ngModel)]="title">
+                <input type="text" class="form-control" id="title" [(ngModel)]="title" (ngModelChange)="onTitleChange()">
             </div>
+            <div class="text-danger mt-1 small" *ngIf="titleError">{{ titleError }}</div>
         </div>
     </div>
 
@@ -124,6 +125,7 @@
         </div>
       </div>
     </div>
+
     <div class="row">
         <div class="col-md-12" [title]="!title.trim() ? 'Please enter a recipe title before saving' : ''">
             <button type="button" class="btn btn-success w-100" (click)="saveRecipe()" [disabled]="!title.trim()">Save Recipe</button>
