@@ -20,12 +20,16 @@ export class RecipesService {
     return this.http.post<any[]>(`${this.baseUrl}/getAllRecipesMatchingCriteria`, recipeCriteria);
   }
 
-  insertRecipe(newRecipe: IRecipe) {
-    return this.http.post<any[]>(`${this.baseUrl}/insertRecipe`, newRecipe);
+  insertRecipe(recipe: IRecipe): Observable<IRecipe> {
+    return this.http.post<IRecipe>(`${this.baseUrl}/insertRecipe`, recipe);
   }
 
   getRecipeById(recipeId: string): Observable<IRecipe> {
     return this.http.get<IRecipe>(`${this.baseUrl}/${recipeId}`);
+  }
+
+  updateRecipe(recipe: IRecipe): Observable<IRecipe> {
+    return this.http.put<IRecipe>(`${this.baseUrl}/${recipe.recipeId}`, recipe);
   }
 
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
 import { RecipeService } from '../services/recipe.service';
 import { Observable } from 'rxjs';
 import { NationalitiesService } from '../services/nationalities.service';
@@ -25,16 +26,20 @@ export class AddRecipeComponent implements OnInit {
   directions: string;
   nationality: string;
   tags: any[];
+  isEditing: boolean = false;
+  saveMessage: string = '';
+  saveError: boolean = false;
 
-  unitsOfMeasurement$! : Observable<Map<string, string>>;
-  nationalities$! : Observable<string[]>;
-  tags$! : Observable<string[]>;
+  unitsOfMeasurement$!: Observable<Map<string, string>>;
+  nationalities$!: Observable<string[]>;
+  tags$!: Observable<string[]>;
 
   constructor(
     private recipesService: RecipesService,
-    private recipeService: RecipeService, 
+    private recipeService: RecipeService,
     private nationalitiesService: NationalitiesService,
-    private tagsService: TagsService
+    private tagsService: TagsService,
+    private router: Router
   ) {
     this.recipeId = "";
     this.title = "";
@@ -43,6 +48,21 @@ export class AddRecipeComponent implements OnInit {
     this.directions = "";
     this.nationality = "";
     this.tags = [];
+
+    // Check if a recipe was passed via router state for editing
+    const navigation = this.router.getCurrentNavigation();
+    const state = navigation?.extras?.state as { recipe: IRecipe };
+    if (state?.recipe) {
+      const recipe = state.recipe;
+      this.recipeId = recipe.recipeId;
+      this.title = recipe.title;
+      this.rating = recipe.rating;
+      this.ingredients = recipe.ingredients;
+      this.directions = recipe.directions;
+      this.nationality = recipe.nationality;
+      this.tags = recipe.tags;
+      this.isEditing = true;
+    }
   }
 
   ngOnInit(): void {
@@ -65,7 +85,6 @@ export class AddRecipeComponent implements OnInit {
   }
 
   addTag() {
-
     this.tags.push('');
   }
 
@@ -86,16 +105,24 @@ export class AddRecipeComponent implements OnInit {
       directions: this.directions,
       nationality: this.nationality,
       tags: this.tags
-    }
+    };
 
-    this.recipesService.insertRecipe(newRecipe).subscribe(
-      response => {
-        console.log('Recipe inserted successfully', response);
+    const operation$ = this.isEditing
+      ? this.recipesService.updateRecipe(newRecipe)
+      : this.recipesService.insertRecipe(newRecipe);
+
+    operation$.subscribe({
+      next: (response) => {
+        console.log('Recipe saved successfully', response);
+        this.saveMessage = 'Recipe saved successfully!';
+        this.saveError = false;
+        setTimeout(() => this.router.navigate(['/recipes']), 1500);
       },
-      error => {
-        console.error('Error inserting recipe', error);
+      error: (error) => {
+        console.error('Error saving recipe', error);
+        this.saveMessage = 'Failed to save recipe. Please try again.';
+        this.saveError = true;
       }
-    );
+    });
   }
-
 }

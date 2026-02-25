@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { IRecipe } from '../models/recipe.model';
 import { RecipesService } from '../services/recipes.service';
 
@@ -23,7 +23,11 @@ export class RecipeComponent implements OnInit {
     ingredients: []
   };
 
-  constructor(private route: ActivatedRoute, private recipesService: RecipesService) { }
+  constructor(
+    private route: ActivatedRoute,
+    private recipesService: RecipesService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
@@ -32,12 +36,10 @@ export class RecipeComponent implements OnInit {
       if (id !== null) {
         this.recipesService.getRecipeById(id).subscribe(
           (result: IRecipe) => {
-            // Handle successful result
             this.recipe = result;
             console.log('Recipe:', this.recipe);
           },
           (error) => {
-            // Handle error
             console.error('Error:', error);
           }
         );
@@ -47,5 +49,7 @@ export class RecipeComponent implements OnInit {
     });
   }
 
-
+  editRecipe(): void {
+    this.router.navigate(['/add-recipe'], { state: { recipe: this.recipe } });
+  }
 }

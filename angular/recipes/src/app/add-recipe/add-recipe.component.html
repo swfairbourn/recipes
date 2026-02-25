@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row mb-3">
         <div class="d-flex justify-content-center text-center">
-            <h2>Add a Recipe</h2>
+            <h2>{{ isEditing ? 'Edit Recipe' : 'Add a Recipe' }}</h2>
         </div>
     </div>
 
@@ -18,7 +18,7 @@
         <div class="col-md-6">
             <div class="input-group">
                 <span class="input-group-text" id="rating">Rating</span>
-                <input type="text" class="form-control" id="rating" [(ngModel)]="rating">
+                <input type="number" class="form-control" id="rating" [(ngModel)]="rating" min="0" max="5" step="0.5">
             </div>
         </div>
     </div>
@@ -32,7 +32,7 @@
             <div class="col-md-3">
                 <div class="input-group">
                     <span class="input-group-text" id="amount-{{i}}">Amount</span>
-                    <input type="text" class="form-control" id="amount-{{i}}" [(ngModel)]="ingredients[i].amount" autocomplete="off">
+                    <input type="number" class="form-control" id="amount-{{i}}" [(ngModel)]="ingredients[i].amount" autocomplete="off" min="0">
                 </div>
             </div>
             <div class="col-md-4 mb-3">
@@ -117,8 +117,17 @@
         </div>
     </div>
     
+    <div class="row mb-2" *ngIf="saveMessage">
+      <div class="col-md-12">
+        <div [class]="saveError ? 'alert alert-danger' : 'alert alert-success'" role="alert">
+          {{ saveMessage }}
+        </div>
+      </div>
+    </div>
     <div class="row">
-        <button type="button" class="btn btn-success" (click)="saveRecipe()">Save Recipe</button>
+        <div class="col-md-12" [title]="!title.trim() ? 'Please enter a recipe title before saving' : ''">
+            <button type="button" class="btn btn-success w-100" (click)="saveRecipe()" [disabled]="!title.trim()">Save Recipe</button>
+        </div>
     </div>
 
 </div>
