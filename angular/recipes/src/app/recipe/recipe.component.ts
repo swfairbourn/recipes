@@ -23,6 +23,8 @@ export class RecipeComponent implements OnInit {
     ingredients: []
   };
 
+  showDeleteConfirm: boolean = false;
+
   constructor(
     private route: ActivatedRoute,
     private recipesService: RecipesService,
@@ -52,4 +54,21 @@ export class RecipeComponent implements OnInit {
   editRecipe(): void {
     this.router.navigate(['/add-recipe'], { state: { recipe: this.recipe } });
   }
+
+  confirmDelete(): void {
+    this.showDeleteConfirm = true;
+  }
+
+  deleteRecipe(): void {
+    this.recipesService.deleteRecipeById(this.recipe.recipeId).subscribe({
+      next: () => {
+        this.showDeleteConfirm = false;
+        this.router.navigate(['/recipes']);
+      },
+      error: (error) => {
+        console.error('Error deleting recipe', error);
+      }
+    });
+  }
+  
 }

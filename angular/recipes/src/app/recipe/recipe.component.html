@@ -1,8 +1,27 @@
 <div class="container">
     <div class="card-body">
-      <h2 class="card-title text-center pt-3">{{ recipe.title }}</h2>
+      <div class="row align-items-center pt-3">
+        <div class="col-4"></div>
+        <div class="col-4 text-center">
+          <h2 class="card-title mb-0">{{ recipe.title }}</h2>
+        </div>
+        <div class="col-4 text-end">
+          <button type="button" class="btn btn-primary me-2" (click)="editRecipe()">
+            <i class="fas fa-pencil-alt"></i>
+          </button>
+          <button type="button" class="btn btn-danger" (click)="confirmDelete()">
+            <i class="fas fa-trash"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="alert alert-danger mt-3" *ngIf="showDeleteConfirm">
+        <p>Are you sure you want to delete <strong>{{ recipe.title }}</strong>? This cannot be undone.</p>
+        <button type="button" class="btn btn-danger me-2" (click)="deleteRecipe()">Yes, Delete</button>
+        <button type="button" class="btn btn-secondary" (click)="showDeleteConfirm = false">Cancel</button>
+      </div>
+
       <p class="card-text"><strong>Rating:</strong> {{ recipe.rating }}</p>
-      <p class="card-text"><strong>Nationality:</strong> {{ recipe.nationality }}</p>
   
       <h3>Ingredients</h3>
       <ul class="list-group">
@@ -14,11 +33,11 @@
       <h3>Directions</h3>
       <p class="card-text">{{ recipe.directions }}</p>
   
+      <p class="card-text"><strong>Nationality:</strong> {{ recipe.nationality }}</p>
+
       <h3>Tags</h3>
       <ul class="list-group">
         <li class="list-group-item" *ngFor="let tag of recipe.tags">{{ tag }}</li>
       </ul>
-
-      <button type="button" class="btn btn-primary mt-3" (click)="editRecipe()">Edit Recipe</button>
     </div>
 </div>

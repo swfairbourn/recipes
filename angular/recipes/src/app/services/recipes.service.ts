@@ -28,4 +28,8 @@ export class RecipesService {
     return this.http.put<IRecipe>(`${this.baseUrl}/${recipe.recipeId}`, recipe);
   }
 
+  deleteRecipeById(recipeId: string): Observable<void> {
+    return this.http.delete<void>(`${this.baseUrl}/${recipeId}`);
+  }
+
 }
