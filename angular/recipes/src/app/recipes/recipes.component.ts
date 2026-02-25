@@ -56,27 +56,27 @@ export class RecipesComponent implements OnInit {
   }
 
   applyFilters(criteria: RecipeCriteria) {
-  const searchTerm = this.searchTerm.trim().toLowerCase();
+    const searchTerm = this.searchTerm.trim().toLowerCase();
 
-  const selectedRatings = criteria.ratings.filter(r => r.selected).map(r => r.value);
-  const selectedNationalities = criteria.nationalities.filter(n => n.selected).map(n => n.value);
-  const selectedTags = criteria.tags.filter(t => t.selected).map(t => t.value);
+    const selectedRatings = criteria.ratings.filter(r => r.selected).map(r => r.value);
+    const selectedNationalities = criteria.nationalities.filter(n => n.selected).map(n => n.value);
+    const selectedTags = criteria.tags.filter(t => t.selected).map(t => t.value);
 
-  this.filteredRecipes = this.allRecipes.filter(recipe => {
-    const matchesSearch = !searchTerm || recipe.title.toLowerCase().includes(searchTerm);
-    const matchesRating = selectedRatings.length === 0 || selectedRatings.some(r => r === recipe.rating);
-    const matchesNationality = selectedNationalities.length === 0 || selectedNationalities.some(n => n === recipe.nationality);
-    const matchesTags = selectedTags.length === 0 || selectedTags.some(tag => recipe.tags.includes(tag));
+    this.filteredRecipes = this.allRecipes.filter(recipe => {
+      const matchesSearch = !searchTerm || recipe.title.toLowerCase().includes(searchTerm);
+      const matchesRating = selectedRatings.length === 0 || selectedRatings.some(r => r === recipe.rating);
+      const matchesNationality = selectedNationalities.length === 0 || selectedNationalities.some(n => n === recipe.nationality);
+      const matchesTags = selectedTags.length === 0 || selectedTags.some(tag => recipe.tags.includes(tag));
 
-    return matchesSearch && matchesRating && matchesNationality && matchesTags;
-  });
+      return matchesSearch && matchesRating && matchesNationality && matchesTags;
+    });
 
-  this.currentPage = 1;
-  this.updatePagination();
-}
+    this.currentPage = 1;
+    this.updatePagination();
+  }
 
-onSearchChange() {
-  this.applyFilters(this.recipeCriteria);
-}
+  onSearchChange() {
+    this.applyFilters(this.recipeCriteria);
+  }
 
 }
