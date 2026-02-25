@@ -20,7 +20,7 @@ export class FiltersComponent {
   @Input() recipeCriteria: RecipeCriteria = new RecipeCriteria([], [], []);
   @Output() updateFiltersEvent = new EventEmitter<RecipeCriteria>();
   nationalities: String[] = [];
-  tags: String[] = [];
+  tags: string[] = [];
 
 
   constructor(private tagsService: TagsService, private nationalitiesService: NationalitiesService) {}
@@ -33,19 +33,19 @@ export class FiltersComponent {
 
   loadRatingCriteria() {
     for (var i = 5; i > 0; i--) {
-      this.recipeCriteria.ratings.push(new RatingModel(i, true, i))
+      this.recipeCriteria.ratings.push(new RatingModel(i, false, i))
     }
   }
 
   loadNationalitiesCriteria() {
     this.nationalities.forEach((value, index) => {
-      this.recipeCriteria.nationalities.push(new NationalityModel(index, true, value))
+      this.recipeCriteria.nationalities.push(new NationalityModel(index, false, value))
     });
   }
 
   loadTagsCriteria() {
     this.tags.forEach((value, index) => {
-      this.recipeCriteria.tags.push(new TagModel(index, true, value))
+      this.recipeCriteria.tags.push(new TagModel(index, false, value))
     });
   }
 
@@ -55,10 +55,10 @@ export class FiltersComponent {
     this.recipeCriteria.ratings.map((r) => {
       if (r.id == id) {
         r.selected = isSelected;
-        return r;
       }
       return r;
     });
+    this.updateFiltersEvent.emit(this.recipeCriteria);
   }
 
   onNationalityChange($event:any) {
@@ -67,10 +67,10 @@ export class FiltersComponent {
     this.recipeCriteria.nationalities.map((n) => {
       if (n.id == id) {
         n.selected = isSelected;
-        return n;
       }
       return n;
     });
+    this.updateFiltersEvent.emit(this.recipeCriteria);
   }
 
   onTagChange($event:any) {
@@ -79,10 +79,10 @@ export class FiltersComponent {
     this.recipeCriteria.tags.map((t) => {
       if (t.id == id) {
         t.selected = isSelected;
-        return t;
       }
       return t;
     });
+    this.updateFiltersEvent.emit(this.recipeCriteria);
   }
 
   updateFilters() {

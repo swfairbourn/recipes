@@ -38,15 +38,6 @@ export class RecipesComponent implements OnInit {
     });
   }
 
-  onSearchChange() {
-    const term = this.searchTerm.trim().toLowerCase();
-    this.filteredRecipes = term
-      ? this.allRecipes.filter(r => r.title.toLowerCase().includes(term))
-      : [...this.allRecipes];
-    this.currentPage = 1;
-    this.updatePagination();
-  }
-
   updatePagination() {
     this.totalPages = Math.max(1, Math.ceil(this.filteredRecipes.length / this.pageSize));
     this.pages = Array.from({ length: this.totalPages }, (_, i) => i + 1);
@@ -64,13 +55,28 @@ export class RecipesComponent implements OnInit {
     this.applyPage();
   }
 
-  getAllRecipesMatchingCriteria(criteria: RecipeCriteria) {
-    this.recipesService.getAllRecipesMatchingCriteria(criteria).subscribe(recipes => {
-      this.allRecipes = recipes;
-      this.filteredRecipes = recipes;
-      this.currentPage = 1;
-      this.updatePagination();
-    });
-  }
+  applyFilters(criteria: RecipeCriteria) {
+  const searchTerm = this.searchTerm.trim().toLowerCase();
+
+  const selectedRatings = criteria.ratings.filter(r => r.selected).map(r => r.value);
+  const selectedNationalities = criteria.nationalities.filter(n => n.selected).map(n => n.value);
+  const selectedTags = criteria.tags.filter(t => t.selected).map(t => t.value);
+
+  this.filteredRecipes = this.allRecipes.filter(recipe => {
+    const matchesSearch = !searchTerm || recipe.title.toLowerCase().includes(searchTerm);
+    const matchesRating = selectedRatings.length === 0 || selectedRatings.some(r => r === recipe.rating);
+    const matchesNationality = selectedNationalities.length === 0 || selectedNationalities.some(n => n === recipe.nationality);
+    const matchesTags = selectedTags.length === 0 || selectedTags.some(tag => recipe.tags.includes(tag));
+
+    return matchesSearch && matchesRating && matchesNationality && matchesTags;
+  });
+
+  this.currentPage = 1;
+  this.updatePagination();
+}
+
+onSearchChange() {
+  this.applyFilters(this.recipeCriteria);
+}
 
 }

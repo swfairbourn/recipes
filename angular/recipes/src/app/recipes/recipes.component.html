@@ -7,7 +7,7 @@
     </div>
     <div class="row">
         <div class="col-2">
-            <app-filters [recipeCriteria]="recipeCriteria" (updateFiltersEvent)="getAllRecipesMatchingCriteria($event)"></app-filters>
+            <app-filters [recipeCriteria]="recipeCriteria" (updateFiltersEvent)="applyFilters($event)"></app-filters>
         </div>
         <div class="col-10">
             <div id="recipesId">

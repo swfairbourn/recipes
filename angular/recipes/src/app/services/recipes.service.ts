@@ -16,10 +16,6 @@ export class RecipesService {
     return this.http.get<any[]>(`${this.baseUrl}/getAllRecipes`);
   }
 
-  getAllRecipesMatchingCriteria(recipeCriteria: any): Observable<any[]> {
-    return this.http.post<any[]>(`${this.baseUrl}/getAllRecipesMatchingCriteria`, recipeCriteria);
-  }
-
   insertRecipe(recipe: IRecipe): Observable<IRecipe> {
     return this.http.post<IRecipe>(`${this.baseUrl}/insertRecipe`, recipe);
   }

@@ -1,57 +1,55 @@
 <div class="container">
     <form>
-        <div class="mb-5 mt-5"> <!-- mb is margin bottom, mt is margin top -->
+        <div class="mb-5 mt-5">
             <h5>Ratings</h5>
-            <!-- Filled in stars are fa fa-star, empty stars are far fa-star, half stars are fas fa-star-half-alt -->
-            <div class="star-rating" *ngFor="let rating of [5, 4, 3, 2, 1]; let i = index">
+            <div class="star-rating" *ngFor="let rating of recipeCriteria.ratings; let i = index">
                 <div class="form-check">
                     <input 
                       class="form-check-input"
                       id="ratingCheckbox{{i}}"
                       type="checkbox" 
-                      [value]="rating"
-                      [checked]="rating"
+                      [value]="rating.id"
+                      [checked]="rating.selected"
                       (change)="onRatingChange($event)">
                     <label class="form-check-label" for="ratingCheckbox{{i}}">
-                        <i class="fa fa-star" *ngFor="let star of [].constructor(rating)"></i>
+                        <i class="fa fa-star" *ngFor="let star of [].constructor(rating.value)"></i>
                     </label>
                 </div>
             </div>
         </div>
         <div class="mb-5">
             <h5>Nationality</h5>
-            <div *ngFor="let nationality of nationalities; let i = index">
+            <div *ngFor="let nationality of recipeCriteria.nationalities; let i = index">
                 <div class="form-check">
                     <input 
                       class="form-check-input"
                       id="nationalityCheckbox{{i}}"
                       type="checkbox" 
-                      [value]="i" 
-                      [checked]="nationality"
+                      [value]="nationality.id"
+                      [checked]="nationality.selected"
                       (change)="onNationalityChange($event)">
                     <label class="form-check-label" for="nationalityCheckbox{{i}}">
-                        {{nationality}}
+                        {{ nationality.value }}
                     </label>
                 </div>
             </div>
         </div>
         <div class="mb-5">
             <h5>Tags</h5>
-            <div *ngFor="let tag of tags; let i = index">
+            <div *ngFor="let tag of recipeCriteria.tags; let i = index">
                 <div class="form-check">
                     <input 
                       class="form-check-input"
                       id="tagCheckbox{{i}}"
                       type="checkbox" 
-                      [value]="i"  
-                      [checked]="tag"
+                      [value]="tag.id"
+                      [checked]="tag.selected"
                       (change)="onTagChange($event)">
                     <label class="form-check-label" for="tagCheckbox{{i}}">
-                        {{ tag }}
+                        {{ tag.value }}
                     </label>
                 </div>
             </div>
-          </div>
-        <button type="button" class="btn btn-primary" (click)="updateFilters()">Update</button>
-  </form>
+        </div>
+    </form>
 </div>
