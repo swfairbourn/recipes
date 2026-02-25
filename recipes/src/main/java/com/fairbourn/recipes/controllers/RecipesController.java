@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.fairbourn.recipes.model.Recipe;
-import com.fairbourn.recipes.model.RecipeCriteria;
 import com.fairbourn.recipes.services.RecipesService;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -74,9 +73,4 @@ public class RecipesController {
 		}
 	}
 	
-	@PostMapping(path = "/getAllRecipesMatchingCriteria")
-	public List<Recipe> getAllRecipesMatchingCriteria(@RequestBody RecipeCriteria recipeCritera) {
-		System.out.println(recipeCritera.toStringtest());
-		return recipesService.getAllRecipesMatchingCriteria(recipeCritera);
-	}
 }
