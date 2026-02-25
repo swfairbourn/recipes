@@ -7,6 +7,9 @@ import { RecipeCriteria } from '../models/recipe-criteria.model';
 import { RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 
+type SortColumn = 'rating' | 'title';
+type SortDirection = 'asc' | 'desc';
+
 @Component({
   selector: 'app-recipes',
   standalone: true,
@@ -28,14 +31,50 @@ export class RecipesComponent implements OnInit {
   totalPages: number = 1;
   pages: number[] = [];
 
+  sortColumn: SortColumn = 'rating';
+  sortDirection: SortDirection = 'desc';
+
   constructor(private recipesService: RecipesService) { }
 
   ngOnInit() {
     this.recipesService.getAllRecipes().subscribe(recipes => {
       this.allRecipes = recipes;
       this.filteredRecipes = recipes;
+      this.sortRecipes();
       this.updatePagination();
     });
+  }
+
+  sortBy(column: SortColumn) {
+    if (this.sortColumn === column) {
+      // Toggle direction if same column clicked
+      this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
+    } else {
+      this.sortColumn = column;
+      // Default direction per column
+      this.sortDirection = column === 'rating' ? 'desc' : 'asc';
+    }
+    this.sortRecipes();
+    this.currentPage = 1;
+    this.applyPage();
+  }
+
+  sortRecipes() {
+    this.filteredRecipes = [...this.filteredRecipes].sort((a, b) => {
+      if (this.sortColumn === 'title') {
+        const comparison = a.title.localeCompare(b.title);
+        return this.sortDirection === 'asc' ? comparison : -comparison;
+      } else {
+        // rating
+        const comparison = a.rating - b.rating;
+        return this.sortDirection === 'asc' ? comparison : -comparison;
+      }
+    });
+  }
+
+  getSortIcon(column: SortColumn): string {
+    if (this.sortColumn !== column) return 'fa-sort';
+    return this.sortDirection === 'asc' ? 'fa-sort-up' : 'fa-sort-down';
   }
 
   updatePagination() {
@@ -71,6 +110,7 @@ export class RecipesComponent implements OnInit {
       return matchesSearch && matchesRating && matchesNationality && matchesTags;
     });
 
+    this.sortRecipes();
     this.currentPage = 1;
     this.updatePagination();
   }

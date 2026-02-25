@@ -14,8 +14,16 @@
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
-                            <th scope="col" class="col-4">Recipe</th>
-                            <th scope="col" class="col-2">Rating</th>
+                            <th scope="col" class="col-4 sortable-header" (click)="sortBy('title')">
+                                Recipe
+                                <i class="fas {{ getSortIcon('title') }} sort-icon"
+                                   [class.sort-icon--active]="sortColumn === 'title'"></i>
+                            </th>
+                            <th scope="col" class="col-2 sortable-header" (click)="sortBy('rating')">
+                                Rating
+                                <i class="fas {{ getSortIcon('rating') }} sort-icon"
+                                   [class.sort-icon--active]="sortColumn === 'rating'"></i>
+                            </th>
                             <th scope="col" class="col-2">Nationality</th>
                             <th scope="col" class="col-4">Tags</th>
                         </tr>

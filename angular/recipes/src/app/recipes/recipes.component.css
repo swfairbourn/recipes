@@ -1,5 +1,32 @@
-
 .cursor-pointer {
     cursor: pointer;
 }
-  
+
+.sortable-header {
+    cursor: pointer;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.sortable-header:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+.sort-icon {
+    margin-left: 6px;
+    font-size: 0.8em;
+    opacity: 0.3;
+    transition: opacity 0.15s ease;
+}
+
+.sort-icon--active {
+    opacity: 1;
+}
+
+.sortable-header:hover .sort-icon {
+    opacity: 0.6;
+}
+
+.sortable-header:hover .sort-icon--active {
+    opacity: 1;
+}
