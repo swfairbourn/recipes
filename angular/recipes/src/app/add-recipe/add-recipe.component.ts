@@ -43,7 +43,7 @@ export class AddRecipeComponent implements OnInit {
   ) {
     this.recipeId = "";
     this.title = "";
-    this.rating = 0;
+    this.rating = 1;
     this.ingredients = [];
     this.directions = "";
     this.nationality = "";
