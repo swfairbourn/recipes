@@ -37,7 +37,7 @@ const allRecipes: IRecipe[] = [existingRecipe, otherRecipe];
 
 function buildSpies() {
   const recipesService = jasmine.createSpyObj('RecipesService', [
-    'getRecipes',
+    'getAllRecipes',
     'insertRecipe',
     'updateRecipe'
   ]);
@@ -46,7 +46,7 @@ function buildSpies() {
   const tagsService = jasmine.createSpyObj('TagsService', ['getAllTags']);
   const router = jasmine.createSpyObj('Router', ['navigate', 'getCurrentNavigation']);
 
-  recipesService.getRecipes.and.returnValue(of(allRecipes));
+  recipesService.getAllRecipes.and.returnValue(of(allRecipes));
   recipesService.insertRecipe.and.returnValue(of({}));
   recipesService.updateRecipe.and.returnValue(of({}));
   recipeService.getAllUnitsOfMeasurement.and.returnValue(of(new Map()));
@@ -165,7 +165,7 @@ describe('AddRecipeComponent', () => {
       component.saveRecipe();
       tick(1500);
 
-      expect(spies.recipesService.getRecipes).toHaveBeenCalled();
+      expect(spies.recipesService.getAllRecipes).toHaveBeenCalled();
       expect(spies.recipesService.insertRecipe).toHaveBeenCalled();
       expect(component.saveError).toBeFalse();
       expect(component.titleError).toBe('');
@@ -313,7 +313,7 @@ describe('AddRecipeComponent', () => {
   describe('saveRecipe() — error handling', () => {
     it('should show a saveMessage error when getRecipes fails', async () => {
       const spies = buildSpies();
-      spies.recipesService.getRecipes.and.returnValue(throwError(() => new Error('Network error')));
+      spies.recipesService.getAllRecipes.and.returnValue(throwError(() => new Error('Network error')));
       const { component } = await createComponent(spies);
 
       component.title = 'Some New Recipe';
