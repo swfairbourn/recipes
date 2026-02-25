@@ -24,7 +24,14 @@
                         <ng-container *ngFor="let recipe of pagedRecipes">
                             <tr [routerLink]="[recipe.recipeId]" class="cursor-pointer">
                                 <td>{{ recipe.title }}</td>
-                                <td>{{ recipe.rating }}</td>
+                                <td>
+                                    <ng-container *ngFor="let star of [].constructor(5); let i = index">
+                                        <i class="fa-star" 
+                                        [class.fas]="i < recipe.rating" 
+                                        [class.far]="i >= recipe.rating">
+                                        </i>
+                                    </ng-container>
+                                </td>
                                 <td>{{ recipe.nationality }}</td>
                                 <td>{{ recipe.tags.join(', ') }}</td>
                             </tr>
