@@ -4,11 +4,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { IRecipe } from '../models/recipe.model';
 import { RecipesService } from '../services/recipes.service';
 import { Pipe, PipeTransform } from '@angular/core';
+import { FractionPipe } from '../pipes/fraction.pipe';
 
-@Pipe({ 
+@Pipe({
   name: 'formatUnit',
   standalone: true
- })
+})
 export class FormatUnitPipe implements PipeTransform {
   transform(value: string): string {
     if (!value) return '';
@@ -23,7 +24,7 @@ export class FormatUnitPipe implements PipeTransform {
 @Component({
   selector: 'app-recipe',
   standalone: true,
-  imports: [CommonModule, FormatUnitPipe],
+  imports: [CommonModule, FormatUnitPipe, FractionPipe],
   templateUrl: './recipe.component.html',
   styleUrl: './recipe.component.css'
 })

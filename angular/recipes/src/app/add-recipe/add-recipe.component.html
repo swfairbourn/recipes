@@ -33,7 +33,7 @@
             <div class="col-md-3">
                 <div class="input-group">
                     <span class="input-group-text" id="amount-{{i}}">Amount</span>
-                    <input type="number" class="form-control" id="amount-{{i}}" [(ngModel)]="ingredients[i].amount" autocomplete="off" min="0">
+                    <input type="text" class="form-control" id="amount-{{i}}" [(ngModel)]="ingredientInputs[i]" autocomplete="off" placeholder="e.g. 1 1/2">
                 </div>
             </div>
             <div class="col-md-4 mb-3">
@@ -94,7 +94,7 @@
     </div>
 
     <div class="tags-section mb-1">
-        <div class="row" id="tag-row" *ngFor="let tag of tags; let i = index  trackBy: trackByIndex">
+        <div class="row" id="tag-row" *ngFor="let tag of tags; let i = index; trackBy: trackByIndex">
             <div class="col-md-6">
                 <div class="input-group">
                     <span for="tag-select" class="input-group-text">Tag</span>

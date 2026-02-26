@@ -9,6 +9,7 @@ import { IIngredient } from '../models/ingredient.model';
 import { TagsService } from '../services/tags.service';
 import { IRecipe } from '../models/recipe.model';
 import { RecipesService } from '../services/recipes.service';
+import { fractionToDecimal, decimalToFraction } from '../utils/fraction.util';
 
 @Component({
   selector: 'app-add-recipe',
@@ -23,6 +24,7 @@ export class AddRecipeComponent implements OnInit {
   title: string;
   rating: number;
   ingredients: IIngredient[];
+  ingredientInputs: string[];
   directions: string;
   nationality: string;
   tags: any[];
@@ -46,6 +48,7 @@ export class AddRecipeComponent implements OnInit {
     this.title = "";
     this.rating = 1;
     this.ingredients = [];
+    this.ingredientInputs = [];
     this.directions = "";
     this.nationality = "";
     this.tags = [];
@@ -59,6 +62,7 @@ export class AddRecipeComponent implements OnInit {
       this.title = recipe.title;
       this.rating = recipe.rating;
       this.ingredients = recipe.ingredients;
+      this.ingredientInputs = recipe.ingredients.map(i => decimalToFraction(i.amount));
       this.directions = recipe.directions;
       this.nationality = recipe.nationality;
       this.tags = recipe.tags;
@@ -79,10 +83,12 @@ export class AddRecipeComponent implements OnInit {
       ingredient: '',
     };
     this.ingredients.push(newIngredient);
+    this.ingredientInputs.push('');
   }
 
   removeIngredient(index: number) {
     this.ingredients.splice(index, 1);
+    this.ingredientInputs.splice(index, 1);
   }
 
   addTag() {
@@ -102,6 +108,12 @@ export class AddRecipeComponent implements OnInit {
   }
 
   saveRecipe() {
+    // Convert fraction inputs to decimals before saving
+    this.ingredients = this.ingredients.map((ing, i) => ({
+      ...ing,
+      amount: fractionToDecimal(this.ingredientInputs[i]) ?? 0
+    }));
+
     const newRecipe: IRecipe = {
       recipeId: this.recipeId,
       title: this.title,
