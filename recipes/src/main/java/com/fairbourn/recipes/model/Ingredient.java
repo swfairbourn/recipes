@@ -9,7 +9,7 @@ public class Ingredient {
 	private String ingredient;
 	
 	public Ingredient(
-			@JsonProperty("value") double amount,
+			@JsonProperty("amount") double amount,
 			@JsonProperty("unitOfMeasurement") UnitOfMeasurement unitOfMeasurement,
 			@JsonProperty("ingredient") String ingredient
 	) {

@@ -5,12 +5,14 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Repository;
 
 import com.fairbourn.recipes.databaseAccessObjects.RecipeDatabaseAccessObject;
 import com.fairbourn.recipes.model.Recipe;
 
 @Repository("inMemory")
+@Profile("!sqlite")
 public class InMemoryRecipeDataAccessService implements RecipeDatabaseAccessObject {
 
 	private static List<Recipe> DB = new ArrayList<>();
