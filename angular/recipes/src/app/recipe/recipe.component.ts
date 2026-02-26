@@ -3,11 +3,27 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IRecipe } from '../models/recipe.model';
 import { RecipesService } from '../services/recipes.service';
+import { Pipe, PipeTransform } from '@angular/core';
+
+@Pipe({ 
+  name: 'formatUnit',
+  standalone: true
+ })
+export class FormatUnitPipe implements PipeTransform {
+  transform(value: string): string {
+    if (!value) return '';
+    return value
+      .toLowerCase()
+      .split('_')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  }
+}
 
 @Component({
   selector: 'app-recipe',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormatUnitPipe],
   templateUrl: './recipe.component.html',
   styleUrl: './recipe.component.css'
 })
@@ -70,5 +86,5 @@ export class RecipeComponent implements OnInit {
       }
     });
   }
-  
+
 }
