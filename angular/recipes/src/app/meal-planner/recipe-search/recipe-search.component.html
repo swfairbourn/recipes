@@ -1,0 +1,19 @@
+<div class="position-relative">
+  <input
+    type="text"
+    class="form-control"
+    placeholder="Search for a recipe to add..."
+    [(ngModel)]="searchTerm"
+    (ngModelChange)="onSearchInput()"
+    (blur)="closeDropdown()"
+  />
+  <ul class="list-group position-absolute w-100 z-3 shadow-sm" *ngIf="showDropdown">
+    <li
+      class="list-group-item list-group-item-action cursor-pointer"
+      *ngFor="let recipe of filteredRecipes"
+      (mousedown)="selectRecipe(recipe)"
+    >
+      {{ recipe.title }}
+    </li>
+  </ul>
+</div>

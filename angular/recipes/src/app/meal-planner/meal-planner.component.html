@@ -1,1 +1,74 @@
-<p>meal-planner works!</p>
+<div class="container">
+
+  <!-- Title -->
+  <div class="row">
+    <h2 class="text-center my-4">Meal Planner</h2>
+  </div>
+
+  <!-- Menu Section -->
+  <div class="row mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-2">
+      <h4 class="mb-0">Menu</h4>
+      <button
+        class="btn btn-sm btn-outline-danger"
+        (click)="clearAll()"
+        [disabled]="menuRecipes.length === 0"
+      >
+        Clear All
+      </button>
+    </div>
+
+    <!-- Search -->
+    <app-recipe-search
+      [allRecipes]="allRecipes"
+      (recipeSelected)="onRecipeSelected($event)"
+      class="mb-3"
+    ></app-recipe-search>
+
+    <!-- Menu list -->
+    <table class="table table-striped mt-2" *ngIf="menuRecipes.length > 0; else noMeals">
+      <thead>
+        <tr>
+          <th class="col-11">Recipe</th>
+          <th class="col-1"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let recipe of menuRecipes; let i = index">
+          <td>{{ recipe.title }}</td>
+          <td>
+            <button class="btn btn-sm btn-danger" (click)="removeRecipe(i)">Remove</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #noMeals>
+      <p class="text-muted mt-2">No meals added yet. Search for a recipe above to get started.</p>
+    </ng-template>
+  </div>
+
+  <!-- Ingredients Section -->
+  <div class="row">
+    <h4>Ingredients</h4>
+    <table class="table table-bordered" *ngIf="consolidatedIngredients.length > 0; else noIngredients">
+      <thead>
+        <tr>
+          <th>Ingredient</th>
+          <th>Amount</th>
+          <th>Unit</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let ing of consolidatedIngredients">
+          <td>{{ ing.ingredient }}</td>
+          <td>{{ ing.amount }}</td>
+          <td>{{ ing.unitOfMeasurement }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <ng-template #noIngredients>
+      <p class="text-muted">Add meals above to see a consolidated ingredients list here.</p>
+    </ng-template>
+  </div>
+
+</div>
