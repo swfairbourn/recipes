@@ -1,5 +1,7 @@
 package com.fairbourn.recipes.model;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+
 public enum UnitOfMeasurement {
     BOTTLE("Bottle"),
     CAN("Can"),
@@ -38,6 +40,16 @@ public enum UnitOfMeasurement {
 
     public String getLabel() {
         return label;
+    }
+
+    /**
+     * Custom deserializer: maps empty or blank strings to null instead of
+     * throwing an error. Falls back to standard enum name matching otherwise.
+     */
+    @JsonCreator
+    public static UnitOfMeasurement fromJson(String value) {
+        if (value == null || value.isBlank()) return null;
+        return UnitOfMeasurement.valueOf(value);
     }
     
 }

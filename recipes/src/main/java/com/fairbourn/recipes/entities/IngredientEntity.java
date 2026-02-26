@@ -21,7 +21,7 @@ public class IngredientEntity {
     @Column(name = "amount", nullable = false)
     private double amount;
 
-    @Column(name = "unit_of_measurement", nullable = false)
+    @Column(name = "unit_of_measurement", nullable = true)
     private String unitOfMeasurement; // stored as enum name string
 
     @Column(name = "ingredient", nullable = false)
