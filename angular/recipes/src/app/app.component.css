@@ -1,11 +1,21 @@
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+#app-container {
+    display: flex;
+    min-height: 100vh;
+}
+
 #sidebar {
     width: 200px;
-    float: left;
-    height: 100vh;
+    flex-shrink: 0;
     background-color: #333333;
 }
 
 #content {
-    height: 100vh;
+    flex: 1;
     background-color: #DDDDDD;
 }

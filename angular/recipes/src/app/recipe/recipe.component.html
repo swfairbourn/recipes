@@ -40,9 +40,14 @@
       </ul>
   
       <h3>Directions</h3>
-      <p class="card-text">{{ recipe.directions }}</p>
-  
-      <p class="card-text"><strong>Nationality:</strong> {{ recipe.nationality }}</p>
+      <ul class="list-group">
+        <li class="list-group-item" style="white-space: pre-wrap">{{ recipe.directions }}</li>
+      </ul>
+
+      <p class="card-text mt-3"><strong>Nationality:</strong></p>
+      <ul class="list-group">
+        <li class="list-group-item">{{ recipe.nationality }}</li>
+      </ul>
 
       <h3>Tags</h3>
       <ul class="list-group">
