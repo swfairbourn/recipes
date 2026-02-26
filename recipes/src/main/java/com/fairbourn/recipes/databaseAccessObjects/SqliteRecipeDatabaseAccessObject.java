@@ -98,12 +98,12 @@ public class SqliteRecipeDatabaseAccessObject implements RecipeDatabaseAccessObj
         List<Ingredient> ingredients = recipe.getIngredients();
         if (ingredients != null) {
             for (int i = 0; i < ingredients.size(); i++) {
-                Ingredient ing = ingredients.get(i);
+                Ingredient ingredient = ingredients.get(i);
                 IngredientEntity ingEntity = new IngredientEntity(
                         entity,
-                        ing.getAmount(),
-                        ing.getUnitOfMeasurement() != null ? ing.getUnitOfMeasurement().name() : null,
-                        ing.getIngredient(),
+                        ingredient.getAmount(),
+                        ingredient.getUnitOfMeasurement() != null ? ingredient.getUnitOfMeasurement().name() : null,
+                        ingredient.getIngredient(),
                         i
                 );
                 entity.getIngredients().add(ingEntity);
@@ -122,12 +122,12 @@ public class SqliteRecipeDatabaseAccessObject implements RecipeDatabaseAccessObj
     private Recipe toModel(RecipeEntity entity) {
         List<Ingredient> ingredients = entity.getIngredients()
                 .stream()
-                .map(ing -> new Ingredient(
-                        ing.getAmount(),
-                        ing.getUnitOfMeasurement() != null
-                                ? UnitOfMeasurement.valueOf(ing.getUnitOfMeasurement())
+                .map(ingredient -> new Ingredient(
+                        ingredient.getAmount(),
+                        ingredient.getUnitOfMeasurement() != null
+                                ? UnitOfMeasurement.valueOf(ingredient.getUnitOfMeasurement())
                                 : null,
-                        ing.getIngredient()
+                        ingredient.getIngredient()
                 ))
                 .toList();
 
