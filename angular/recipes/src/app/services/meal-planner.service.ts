@@ -46,12 +46,12 @@ export class MealPlannerService {
           map.set(key, {
             ...ing,
             key,
-            // preserve existing deselected state, default to checked
             checked: !this.deselectedKeys.has(key)
           });
         }
       }
     }
-    return Array.from(map.values());
+    return Array.from(map.values())
+      .sort((a, b) => a.ingredient.localeCompare(b.ingredient));
   }
 }
