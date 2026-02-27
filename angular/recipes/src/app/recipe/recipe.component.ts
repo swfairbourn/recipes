@@ -88,4 +88,122 @@ export class RecipeComponent implements OnInit {
     });
   }
 
+  generatePdf(): void {
+    const ingredientItems = this.recipe.ingredients
+      .map(ing => {
+        const amount = this.formatFraction(ing.amount);
+        const unit = this.formatUnit(ing.unitOfMeasurement);
+        return `<li>${amount} ${unit} ${ing.ingredient}</li>`;
+      })
+      .join('');
+
+    const html = `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>${this.recipe.title}</title>
+          <style>
+            body {
+              font-family: Arial, sans-serif;
+              padding: 40px;
+              color: #111;
+              max-width: 800px;
+              margin: 0 auto;
+            }
+            h1 {
+              font-size: 28px;
+              margin-bottom: 8px;
+            }
+            h2 {
+              font-size: 16px;
+              font-weight: bold;
+              margin: 0 0 10px 0;
+            }
+            hr {
+              border: none;
+              border-top: 1px solid #ccc;
+              margin: 16px 0;
+            }
+            ul {
+              list-style: none;
+              padding: 0;
+              margin: 0;
+            }
+            ul li {
+              font-size: 13px;
+              padding: 3px 0;
+            }
+            p {
+              font-size: 13px;
+              line-height: 1.6;
+              margin: 0;
+              white-space: pre-wrap;
+            }
+            @media print {
+              body { padding: 20px; }
+            }
+          </style>
+        </head>
+        <body>
+          <h1>${this.recipe.title}</h1>
+          <hr>
+
+          <h2>Ingredients</h2>
+          <ul>
+            ${ingredientItems}
+          </ul>
+          <hr>
+
+          <h2>Directions</h2>
+          <p>${this.recipe.directions}</p>
+
+          <script>
+            window.onload = function() { window.print(); }
+          </script>
+        </body>
+      </html>
+    `;
+
+    const tab = window.open('', '_blank');
+    if (tab) {
+      tab.document.write(html);
+      tab.document.close();
+    }
+  }
+
+  private formatFraction(value: number): string {
+    if (!value) return '';
+    const whole = Math.floor(value);
+    const decimal = value - whole;
+
+    const fractions: { [key: number]: string } = {
+      0.125: '⅛', 0.25: '¼', 0.333: '⅓',
+      0.375: '⅜', 0.5: '½', 0.625: '⅝',
+      0.667: '⅔', 0.75: '¾', 0.875: '⅞'
+    };
+
+    const tolerance = 0.01;
+    let fractionStr = '';
+    for (const [decVal, symbol] of Object.entries(fractions)) {
+      if (Math.abs(decimal - Number(decVal)) < tolerance) {
+        fractionStr = symbol;
+        break;
+      }
+    }
+
+    if (fractionStr) {
+      return whole > 0 ? `${whole} ${fractionStr}` : fractionStr;
+    }
+    return value % 1 === 0 ? `${whole}` : `${value}`;
+  }
+
+  private formatUnit(value: string): string {
+    if (!value) return '';
+    return value
+      .toLowerCase()
+      .split('_')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+  }
+
 }
