@@ -1,0 +1,15 @@
+# CODEOWNERS
+
+# Default owner for everything in the repo
+* @swfairbourn
+
+# Angular components
+src/app/**/*.ts @swfairbourn
+src/app/**/*.html @swfairbourn
+src/app/**/*.css @swfairbourn
+
+# Services
+src/app/services/** @swfairbourn
+
+# Models
+src/app/models/** @swfairbourn
