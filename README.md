@@ -1,5 +1,5 @@
 # Recipes
-Recipe management system and meal planning tools. Built using an Angular user interface, a spring boot server and a postgreSQL database.
+Recipe management system and meal planning tools. Built using an Angular user interface, a spring boot server and a SQLite database.
 
 ## Development Setup
 1. Start the spring boot project by running the RecipesApplication file
