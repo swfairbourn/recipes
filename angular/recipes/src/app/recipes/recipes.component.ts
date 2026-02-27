@@ -27,7 +27,8 @@ export class RecipesComponent implements OnInit {
   recipeCriteria: RecipeCriteria = new RecipeCriteria([], [], []);
 
   currentPage: number = 1;
-  pageSize: number = 10;
+  pageSize: number = 20;
+  pageSizeOptions: number[] = [10, 15, 20, 25, 30, 40, 50];
   totalPages: number = 1;
   pages: number[] = [];
 
@@ -47,11 +48,9 @@ export class RecipesComponent implements OnInit {
 
   sortBy(column: SortColumn) {
     if (this.sortColumn === column) {
-      // Toggle direction if same column clicked
       this.sortDirection = this.sortDirection === 'asc' ? 'desc' : 'asc';
     } else {
       this.sortColumn = column;
-      // Default direction per column
       this.sortDirection = column === 'rating' ? 'desc' : 'asc';
     }
     this.sortRecipes();
@@ -65,7 +64,6 @@ export class RecipesComponent implements OnInit {
         const comparison = a.title.localeCompare(b.title);
         return this.sortDirection === 'asc' ? comparison : -comparison;
       } else {
-        // rating
         const comparison = a.rating - b.rating;
         return this.sortDirection === 'asc' ? comparison : -comparison;
       }
@@ -92,6 +90,11 @@ export class RecipesComponent implements OnInit {
     if (page < 1 || page > this.totalPages) return;
     this.currentPage = page;
     this.applyPage();
+  }
+
+  onPageSizeChange() {
+    this.currentPage = 1;
+    this.updatePagination();
   }
 
   applyFilters(criteria: RecipeCriteria) {

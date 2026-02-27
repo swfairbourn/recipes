@@ -47,6 +47,18 @@
                     </tbody>
                 </table>
 
+                <div class="d-flex justify-content-center align-items-center gap-2 mb-2">
+                    <label for="pageSizeSelect" class="mb-0 text-muted small">Per page:</label>
+                    <select
+                        id="pageSizeSelect"
+                        class="form-select form-select-sm w-auto"
+                        [(ngModel)]="pageSize"
+                        (ngModelChange)="onPageSizeChange()"
+                    >
+                        <option *ngFor="let size of pageSizeOptions" [value]="size">{{ size }}</option>
+                    </select>
+                </div>
+
                 <nav *ngIf="totalPages > 1">
                     <ul class="pagination justify-content-center">
                         <li class="page-item" [class.disabled]="currentPage === 1">

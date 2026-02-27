@@ -1,0 +1,4 @@
+.ingredient-row--unchecked td {
+  opacity: 0.4;
+  text-decoration: line-through;
+}

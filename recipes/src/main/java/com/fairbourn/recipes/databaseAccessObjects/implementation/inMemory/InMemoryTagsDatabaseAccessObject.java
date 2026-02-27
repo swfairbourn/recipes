@@ -24,6 +24,8 @@ public class InMemoryTagsDatabaseAccessObject  implements TagsDatabaseAccessObje
 			DB.add("Appetizer");
 			DB.add("Side Dish");
 			DB.add("Main Course");
+			DB.add("Marinade");
+			DB.add("Sauce");
 			DB.add("Dessert");
 			DB.add("Snack");
 			DB.add("Soup");
@@ -33,18 +35,10 @@ public class InMemoryTagsDatabaseAccessObject  implements TagsDatabaseAccessObje
 			DB.add("Beef");
 			DB.add("Pork");
 			DB.add("Seafood");
-			DB.add("Vegetarian");
-			DB.add("Vegan");
-			DB.add("Gluten-Free");
-			DB.add("Dairy-Free");
-			DB.add("Low-Carb");
-			DB.add("Keto");
 			DB.add("Slow Cooker");
 			DB.add("Instant Pot");
 			DB.add("Grilled");
 			DB.add("Baked");
-			DB.add("One-Pot");
-			DB.add("Healthy");
 			DB.add("Quick & Easy");
 			DB.add("Kid-Friendly");
 		}
